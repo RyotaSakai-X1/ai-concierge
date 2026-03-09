@@ -11,6 +11,9 @@ Claude Code のチャットで使える自動化コマンドの一覧です。
 | コマンド | 何ができる？ | 使い方の例 |
 |---------|------------|-----------|
 | `/estimate` | スプレッドシートの機能要件から工数を自動見積もり | `/estimate https://docs.google.com/spreadsheets/d/xxx/edit` |
+| `/process-idea` | アイデアを精査・評価して仕様書を自動生成 | `/process-idea` または `/process-idea --dry-run` |
+| `/generate-spec` | 仕様書から実装計画・技術設計を生成 | `/generate-spec docs/specs/2026-03-09-xxx.md` |
+| `/execute-plan` | タスクリストを順次自律実行 | `/execute-plan docs/outputs/xxx/tasks.md` |
 
 ## コマンドを追加したい場合
 
