@@ -16,6 +16,9 @@ Claude Code のチャットで使える自動化コマンドの一覧です。
 | `/review` | 仕様書や成果物をチェックリストに基づいてレビュー | `/review docs/specs/2026-03-09-xxx.md` |
 | `/execute-plan` | タスクリストを順次自律実行 | `/execute-plan docs/outputs/xxx/tasks.md` |
 | `/create-pr` | 変更からブランチ作成・コミット・プッシュ・PR作成を一括実行 | `/create-pr ログイン機能を追加` |
+| `/triage` | 全オープンイシューを優先度・依存関係で整理して着手順を提案 | `/triage` |
+| `/check-ready` | 指定イシューの着手可否を依存関係から判定 | `/check-ready 12` |
+| `/sprint-plan` | 着手可能なイシューから直近の作業計画を作成 | `/sprint-plan` または `/sprint-plan --days 5` |
 
 ## コマンドを追加したい場合
 
