@@ -19,6 +19,7 @@
 | アイデアを仕様書にしたい | `/process-idea` | `/process-idea` | ideas.md の未処理アイデアを評価・精査して仕様書を自動生成します |
 | 仕様書から実装計画を作りたい | `/generate-spec` | `/generate-spec docs/specs/xxx.md` | 仕様書を読み込んで技術設計・タスクリスト・リスク一覧を生成します |
 | タスクを自動実行したい | `/execute-plan` | `/execute-plan docs/outputs/xxx/tasks.md` | タスクリストを順番に実行し、完了レポートを生成します |
+| 変更をPRにしたい | `/create-pr` | `/create-pr ログイン機能を追加` | main の変更からブランチ作成・コミット・プッシュ・PR作成を一括実行します |
 
 > コマンドは今後どんどん追加されます。「こんなことも自動化できない？」と思ったら、Claude に聞いてみてください。
 
