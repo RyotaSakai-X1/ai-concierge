@@ -1,0 +1,14 @@
+name: PR をプロジェクトに自動追加
+
+on:
+  pull_request:
+    types: [opened]
+
+jobs:
+  add-to-project:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/add-to-project@v1
+        with:
+          project-url: https://github.com/users/RyotaSakai-X1/projects/1
+          github-token: ${{ secrets.PROJECT_TOKEN }}
