@@ -5,13 +5,13 @@
 ## 使用方法
 
 ```bash
-/check-ready <イシュー番号>
+/checking-ready <イシュー番号>
 ```
 
 例:
 
-- `/check-ready 12`
-- `/check-ready 16`
+- `/checking-ready 12`
+- `/checking-ready 16`
 
 ## 引数の形式: $ARGUMENTS
 

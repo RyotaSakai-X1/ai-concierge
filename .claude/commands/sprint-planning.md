@@ -5,9 +5,9 @@
 ## 使用方法
 
 ```bash
-/sprint-plan
-/sprint-plan --days 5
-/sprint-plan --max 3
+/sprint-planning
+/sprint-planning --days 5
+/sprint-planning --max 3
 ```
 
 オプション:
@@ -20,7 +20,7 @@
 
 ### Step 1: 着手可能なイシューを取得
 
-`/triage` と同じロジックで、全オープンイシューから着手可能（🟢）なものを抽出する。
+`/triaging` と同じロジックで、全オープンイシューから着手可能（🟢）なものを抽出する。
 
 ### Step 2: 工数の推定
 
@@ -37,7 +37,7 @@
 
 以下の基準で選定する:
 
-1. `/triage` の優先度順に並べる
+1. `/triaging` の優先度順に並べる
 2. 推定工数の合計が `--days` に収まる範囲で詰める
 3. `--max` を超えない
 
@@ -72,7 +72,7 @@
 
 スプリント計画を承認するか確認し、承認されたら:
 
-1. 最優先イシューの `/work-on-issue` or ブランチ作成手順を案内
+1. 最優先イシューの `/working-on-issue` or ブランチ作成手順を案内
 2. 必要に応じてスプリント計画を `docs/outputs/sprint/` に保存
 
 ## 注意事項

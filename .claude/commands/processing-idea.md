@@ -1,4 +1,4 @@
-# /process-idea — アイデア精査・仕様書生成
+# /processing-idea — アイデア精査・仕様書生成
 
 ## 処理フロー
 

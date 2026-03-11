@@ -5,13 +5,13 @@
 ## 使用方法
 
 ```bash
-/estimate <スプレッドシートのURL または ID>
+/estimating <スプレッドシートのURL または ID>
 ```
 
 例:
 
-- `/estimate https://docs.google.com/spreadsheets/d/1ABC123xyz/edit?gid=0#gid=0`
-- `/estimate 1ABC123xyz`
+- `/estimating https://docs.google.com/spreadsheets/d/1ABC123xyz/edit?gid=0#gid=0`
+- `/estimating 1ABC123xyz`
 
 ## 引数の形式: $ARGUMENTS
 

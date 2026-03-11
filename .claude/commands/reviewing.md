@@ -5,13 +5,13 @@
 ## 使用方法
 
 ```bash
-/review <対象ファイルのパス>
+/reviewing <対象ファイルのパス>
 ```
 
 例:
 
-- `/review docs/specs/2026-03-09-hello-world-automation.md`
-- `/review docs/outputs/hello-world-automation/execution-report.md`
+- `/reviewing docs/specs/2026-03-09-hello-world-automation.md`
+- `/reviewing docs/outputs/hello-world-automation/execution-report.md`
 
 ## 引数の形式: $ARGUMENTS
 
@@ -73,7 +73,7 @@
 
 | 判定 | 案内する次のアクション |
 |------|-------------------|
-| ✅ 承認 | 仕様書 → 「`/execute-plan` で実行に進めます」 / 成果物 → 「`/create-pr` で PR を作成できます」 |
+| ✅ 承認 | 仕様書 → 「`/executing-plan` で実行に進めます」 / 成果物 → 「`/creating-pr` で PR を作成できます」 |
 | ⚠️ 条件付き承認 | 指摘箇所の修正案を提示し、修正後に再レビューを提案 |
 | ❌ 差し戻し | 問題の原因と修正の方向性を提示 |
 

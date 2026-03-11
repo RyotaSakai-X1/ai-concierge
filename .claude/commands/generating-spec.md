@@ -1,4 +1,4 @@
-# /generate-spec — 仕様書から実装計画・技術設計を生成
+# /generating-spec — 仕様書から実装計画・技術設計を生成
 
 ## 処理フロー
 
@@ -19,7 +19,7 @@
 ## 使用例
 
 ```
-/generate-spec docs/specs/2025-01-01-feedback-system.md
+/generating-spec docs/specs/2025-01-01-feedback-system.md
 ```
 
 ## 注意事項
