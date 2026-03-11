@@ -21,7 +21,13 @@
 
 - PR 作成が完了したら、AskUserQuestion で **main に戻るかどうか**を聞く
   - 選択肢: `main に戻る` / `このブランチで続ける`
-- `main に戻る` → `git checkout main && git pull`
+- `main に戻る` → `git checkout main && git pull` → 次のイシュー提案へ
+
+### main に戻った後
+
+- main に戻ったら、必ず次にやるべきイシューを提案する
+- `gh issue list` で優先度が高いものから順に確認し、AskUserQuestion で着手するか聞く
+  - 選択肢: 提案するイシューのタイトル / `他のイシューを見る` / `今は作業しない`
 
 ### ブランチの削除
 
