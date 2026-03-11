@@ -34,8 +34,67 @@
    ```bash
    cp .env.sample .env
    ```
-3. Claude Code を起動する
-4. 上の「できること一覧」からやりたいことを見つけて、コマンドを入力する
+3. 外部サービスの認証情報を設定する（下の「外部サービスの設定」を参照）
+4. Claude Code を起動する
+5. 上の「できること一覧」からやりたいことを見つけて、コマンドを入力する
+
+## 外部サービスの設定
+
+Claude Code が Google Workspace 等の外部サービスと連携するために、認証情報の設定が必要です。
+
+### Google Workspace MCP（Gmail / Drive / Docs / Sheets / Calendar 等）
+
+[google_workspace_mcp](https://github.com/taylorwilsdon/google_workspace_mcp) を使って Google Workspace と連携します。
+
+**1. Google Cloud Console でプロジェクトを作成**
+1. [Google Cloud Console](https://console.cloud.google.com) にアクセス
+2. 新しいプロジェクトを作成（または既存のものを選択）
+
+**2. 必要な API を有効化**
+「APIとサービス」→「有効なAPIとサービス」で以下を有効化：
+- Google Drive API
+- Google Docs API
+- Google Sheets API
+- Gmail API
+- Google Calendar API
+
+**3. OAuth 同意画面を設定**
+1. 「APIとサービス」→「OAuth 同意画面」を開く
+2. ユーザーの種類: **外部** を選択
+3. テストユーザーに自分のメールアドレスを追加
+
+**4. OAuth クライアント ID を作成**
+1. 「APIとサービス」→「認証情報」→「認証情報を作成」→「OAuth クライアント ID」
+2. アプリケーションの種類: **デスクトップアプリケーション**
+3. 作成後に表示される **Client ID** と **Client Secret** をコピー
+
+**5. `.env` に設定**
+```
+GOOGLE_OAUTH_CLIENT_ID=コピーした Client ID
+GOOGLE_OAUTH_CLIENT_SECRET=コピーした Client Secret
+```
+
+### GitHub
+
+PR 作成やイシュー管理に使用します。
+
+1. GitHub → Settings → Developer settings → Personal access tokens → Tokens (classic)
+2. 「Generate new token」→ `repo` スコープにチェック → Generate
+3. `.env` に設定：
+   ```
+   GITHUB_PERSONAL_ACCESS_TOKEN=生成したトークン
+   ```
+
+### Figma
+
+デザインデータの読み取りに使用します。
+
+1. Figma → 左上のアイコン → Settings → Security → Personal access tokens
+2. 「Generate new token」でトークンを生成
+3. `.env` に設定：
+   ```
+   FIGMA_API_KEY=生成したトークン
+   ```
 
 ## コマンドの使い方
 
