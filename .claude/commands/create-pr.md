@@ -57,7 +57,7 @@ git push -u origin feature/YYYY-MM-DD-{slug}
 
 **gh が使える場合:**
 ```bash
-gh pr create --title "PRタイトル" --body "PR本文" --base main
+gh pr create --title "PRタイトル" --body "PR本文" --base main --assignee @me
 ```
 
 **gh が使えない場合:**

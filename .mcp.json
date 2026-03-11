@@ -1,11 +1,13 @@
 {
   "mcpServers": {
     "google-workspace": {
-      "command": "uvx",
-      "args": ["workspace-mcp", "--tool-tier", "core"],
+      "command": "sh",
+      "args": [
+        "-c",
+        "set -a && . ./.env && set +a && uvx workspace-mcp --single-user --tool-tier complete"
+      ],
       "env": {
-        "GOOGLE_OAUTH_CLIENT_ID": "${GOOGLE_OAUTH_CLIENT_ID}",
-        "GOOGLE_OAUTH_CLIENT_SECRET": "${GOOGLE_OAUTH_CLIENT_SECRET}",
+        "MCP_SINGLE_USER_MODE": "true",
         "OAUTHLIB_INSECURE_TRANSPORT": "1"
       }
     }
