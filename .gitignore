@@ -2,3 +2,6 @@
 
 # Personal Claude Code settings
 .claude/settings.local.json
+
+# MCP server config (contains OAuth credentials)
+.mcp.json
