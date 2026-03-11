@@ -80,6 +80,18 @@ GOOGLE_OAUTH_CLIENT_ID=コピーした Client ID
 GOOGLE_OAUTH_CLIENT_SECRET=コピーした Client Secret
 ```
 
+### Anthropic API（GitHub Actions 用）
+
+PR やイシューに `@claude` とコメントすると Claude が自動で対応する機能に必要です。
+
+1. [Anthropic Console](https://console.anthropic.com/) にアクセスしてログイン
+2. **Settings → API Keys → Create Key** で新しいキーを生成
+3. GitHub リポジトリの **Settings → Secrets and variables → Actions → New repository secret** に登録：
+   - Name: `ANTHROPIC_API_KEY`
+   - Secret: 生成したキー
+
+> ⚠️ これは `.env` ではなく **GitHub の Repository Secrets** に登録します（GitHub Actions から使うため）。
+
 ### GitHub
 
 PR 作成やイシュー管理に使用します。
