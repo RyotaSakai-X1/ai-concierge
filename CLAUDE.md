@@ -20,6 +20,7 @@
 |--------|---------|------|
 | Git ワークフロー | `knowledge/rules/git-workflow.md` | main 直コミット禁止、ブランチ→PR 必須、PR 後に main に戻るか聞く |
 | イシュー管理 | `knowledge/rules/issue-management.md` | 議論から自発的にイシュー起票、ラベル必須 |
+| レビュー対応 | `knowledge/rules/review-response.md` | 質問→回答のみ、修正依頼→修正+報告、曖昧→確認してから |
 
 ## ユーザーへの確認方法
 
