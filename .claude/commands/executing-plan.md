@@ -1,4 +1,4 @@
-# /execute-plan — タスクリストを順次自律実行
+# /executing-plan — タスクリストを順次自律実行
 
 ## 処理フロー
 
@@ -28,7 +28,7 @@
 ## 使用例
 
 ```
-/execute-plan docs/outputs/feedback-system/tasks.md
+/executing-plan docs/outputs/feedback-system/tasks.md
 ```
 
 ## 引数オプション

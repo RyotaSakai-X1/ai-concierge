@@ -34,7 +34,7 @@
 
 ## 自動化パイプライン
 
-アイデアが `docs/ideas.md` に追記されたとき、または `/process-idea` が呼ばれたとき：
+アイデアが `docs/ideas.md` に追記されたとき、または `/processing-idea` が呼ばれたとき：
 
 1. ideas.md の未処理アイデアを読み込む
 2. `knowledge/business-rules.md` を参照してフィルタリング・評価する
