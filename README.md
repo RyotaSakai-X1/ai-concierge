@@ -1,4 +1,4 @@
-# team-design-test
+# ai-concierge
 
 ## これは何？
 

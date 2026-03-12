@@ -19,7 +19,7 @@
 
 ### Step 1: イシュー情報の取得
 
-`gh issue view {番号} --repo RyotaSakai-X1/team-design-test --json number,title,body,state` で対象イシューの情報を取得する。
+`gh issue view {番号} --repo RyotaSakai-X1/ai-concierge --json number,title,body,state` で対象イシューの情報を取得する。
 
 ### Step 2: 依存イシューの特定
 

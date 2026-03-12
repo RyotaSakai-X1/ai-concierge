@@ -14,7 +14,7 @@
 
 ### Step 1: 全オープンイシューを取得
 
-`gh issue list --repo RyotaSakai-X1/team-design-test --state open --json number,title,body,labels` で全オープンイシューを取得する。
+`gh issue list --repo RyotaSakai-X1/ai-concierge --state open --json number,title,body,labels` で全オープンイシューを取得する。
 
 ### Step 2: 依存関係の解析
 
