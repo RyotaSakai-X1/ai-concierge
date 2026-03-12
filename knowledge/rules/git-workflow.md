@@ -8,15 +8,17 @@
 ### 作業の流れ
 
 1. `git checkout -b feature/YYYY-MM-DD-{slug}` でブランチ作成
-2. 作業・コミット
-3. **PR 作成前に必ずローカルで `/review` を実行する**
-4. レビューで指摘があれば修正してから次へ進む
-5. `git push -u origin {ブランチ名}` でプッシュ
-6. `gh pr create --assignee @me` で PR 作成
+2. 関連イシューのステータスを **In progress** に変更する（後述「イシューステータスの更新」参照）
+3. 作業・コミット
+4. **PR 作成前に必ずローカルで `/review` を実行する**
+5. レビューで指摘があれば修正してから次へ進む
+6. `git push -u origin {ブランチ名}` でプッシュ
+7. `gh pr create --assignee @me` で PR 作成
    - Assignees に自分を追加する（`--assignee @me`）
    - レビュー結果を PR 本文に含める
    - 関連イシューがあれば PR 本文に `Closes #XX` を記載して紐づける
-7. ユーザーが最終レビュー・マージ
+8. 関連イシューのステータスを **In review** に変更する
+9. ユーザーが最終レビュー・マージ
 
 ### PR 作成後
 
@@ -45,3 +47,32 @@
 - コミット前に AskUserQuestion（OK / NG）で確認を取る:
   - 今回の変更概要
   - コミットメッセージ案
+
+## イシューステータスの更新
+
+GitHub Projects のステータスを以下のタイミングで変更する：
+
+| タイミング | ステータス |
+|-----------|-----------|
+| イシューに着手（ブランチ作成時） | **In progress** |
+| PR 作成後 | **In review** |
+| PR マージ後 | **Done**（GitHub の自動化で設定済み） |
+
+### 更新コマンド
+
+```bash
+# 1. イシューの Project Item ID を取得
+ITEM_ID=$(gh project item-list 1 --owner RyotaSakai-X1 --format json \
+  | jq -r '.items[] | select(.content.number == {イシュー番号} and .content.type == "Issue") | .id')
+
+# 2. ステータスを変更
+gh project item-edit --project-id PVT_kwHOB_Hl9M4BRRtG \
+  --id "$ITEM_ID" \
+  --field-id PVTSSF_lAHOB_Hl9M4BRRtGzg_Jsyk \
+  --single-select-option-id {ステータスのオプションID}
+```
+
+ステータスのオプション ID:
+- `47fc9ee4` — In progress
+- `df73e18b` — In review
+- `98236657` — Done
