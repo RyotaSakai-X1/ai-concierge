@@ -26,6 +26,7 @@
 | Git ワークフロー | `knowledge/rules/git-workflow.md` | main 直コミット禁止、ブランチ→PR 必須、PR 後に main に戻るか聞く |
 | イシュー管理 | `knowledge/rules/issue-management.md` | 議論から自発的にイシュー起票、ラベル必須 |
 | レビュー対応 | `knowledge/rules/review-response.md` | 質問→回答のみ、修正依頼→修正+報告、曖昧→確認してから |
+| 秘書の行動 | `knowledge/rules/secretary-behavior.md` | セッション開始手順、自律行動範囲、報告・口調・承認の方針 |
 
 ## ユーザーへの確認方法
 
