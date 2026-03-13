@@ -10,15 +10,15 @@ Claude Code のチャットで使える自動化コマンドの一覧です。
 
 | コマンド | 何ができる？ | 使い方の例 |
 |---------|------------|-----------|
-| `/estimating` | スプレッドシートの機能要件から工数を自動見積もり | `/estimating https://docs.google.com/spreadsheets/d/xxx/edit` |
-| `/processing-idea` | アイデアを精査・評価して仕様書を自動生成 | `/processing-idea` または `/processing-idea --dry-run` |
-| `/generating-spec` | 仕様書から実装計画・技術設計を生成 | `/generating-spec docs/specs/2026-03-09-xxx.md` |
-| `/reviewing` | 仕様書や成果物をチェックリストに基づいてレビュー | `/reviewing docs/specs/2026-03-09-xxx.md` |
-| `/executing-plan` | タスクリストを順次自律実行 | `/executing-plan docs/outputs/xxx/tasks.md` |
+| `/work-on-issue` | イシュー番号→分析→実装→セルフレビュー→PR作成を一括実行 | `/work-on-issue 12` |
+| `/parallel-work` | 複数イシューを worktree 並列で同時実行 | `/parallel-work 12 14 16` |
 | `/creating-pr` | 変更からブランチ作成・コミット・プッシュ・PR作成を一括実行 | `/creating-pr ログイン機能を追加` |
-| `/triaging` | 全オープンイシューを優先度・依存関係で整理して着手順を提案 | `/triaging` |
+| `/reviewing` | 仕様書・成果物・PRをチェックリストに基づいてレビュー | `/reviewing docs/specs/2026-03-09-xxx.md` |
+| `/briefing` | PR状況・CI・worktree状態・レビュー依頼を報告 | `/briefing` |
+| `/estimating` | スプレッドシートの機能要件から工数を自動見積もり | `/estimating https://docs.google.com/spreadsheets/d/xxx/edit` |
+| `/generating-spec` | 仕様書から実装計画・技術設計を生成 | `/generating-spec docs/specs/2026-03-09-xxx.md` |
+| `/executing-plan` | タスクリストを順次自律実行 | `/executing-plan docs/outputs/xxx/tasks.md` |
 | `/checking-ready` | 指定イシューの着手可否を依存関係から判定 | `/checking-ready 12` |
-| `/sprint-planning` | 着手可能なイシューから直近の作業計画を作成 | `/sprint-planning` または `/sprint-planning --days 5` |
 
 ## コマンドを追加したい場合
 

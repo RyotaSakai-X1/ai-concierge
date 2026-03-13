@@ -11,7 +11,7 @@ if [[ "$COMMAND" != git\ commit* ]]; then
 fi
 
 # ステージングされたファイル名をチェック
-DANGEROUS_FILES=$(git diff --cached --name-only | grep -iE '^\.(env|env\..*)$|credentials|secret' | grep -v '\.sample$' || true)
+DANGEROUS_FILES=$(git diff --cached --name-only | grep -iE '^\.(env|env\..*)$|credentials|secret' | grep -v '\.sample$' | grep -vi 'secretary' || true)
 if [[ -n "$DANGEROUS_FILES" ]]; then
   echo "ブロック: 機密ファイルがコミットに含まれています: $DANGEROUS_FILES" >&2
   exit 2
