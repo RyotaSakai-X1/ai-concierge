@@ -41,6 +41,38 @@
   git branch --merged main | grep -v '^\*\|main' | xargs -r git branch -d
   ```
 
+## Worktree 並列実行
+
+### ブランチ命名規則
+
+worktree で作成されるブランチも通常と同じ命名規則に従う:
+- `feature/YYYY-MM-DD-{slug}`
+- `fix/YYYY-MM-DD-{slug}`
+
+### 並列PR作成時のマージ順序
+
+複数の PR が同時に作成された場合:
+
+1. **独立した変更**: 順序を問わずマージ可能
+2. **ファイル競合あり**: 先にマージした PR の変更を後続 PR にリベースしてからマージ
+3. **論理的依存あり**: 依存元を先にマージし、依存先は依存元マージ後にリベース
+
+### コンフリクト検出
+
+並列実行完了後、以下のコマンドでコンフリクトを事前検出する:
+
+```bash
+# 各ブランチ間の差分ファイル一覧を比較
+git diff --name-only main..branch-a
+git diff --name-only main..branch-b
+# 重複するファイルがあればコンフリクトの可能性を警告
+```
+
+### worktree のクリーンアップ
+
+- PR 作成完了後、worktree は自動的にクリーンアップされる（Agent tool が管理）
+- 手動で残った worktree は `git worktree prune` で掃除する
+
 ## コミット
 
 - コミットメッセージは**日本語**で書く
