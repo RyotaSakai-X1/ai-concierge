@@ -75,7 +75,11 @@ https://github.com/{owner}/{repo}/compare/main...feature/YYYY-MM-DD-{slug}?expan
 {本文}
 ```
 
-### Step 7: main に戻る
+### Step 7: イシューステータスを In review に変更
+
+PR に `Closes #XX` で紐づけたイシューがある場合、`knowledge/rules/git-workflow.md` の「イシューステータスの更新」手順に従い、ステータスを **In review** に変更する。
+
+### Step 8: main に戻る
 
 ```bash
 git checkout main

@@ -1,4 +1,14 @@
 {
+  "allow": [
+    "Bash(gh auth status 2>&1)",
+    "Bash(gh issue:*)",
+    "mcp__claude_ai_Google_Calendar__gcal_list_events",
+    "Bash(git add:*)",
+    "Bash(git push:*)",
+    "Bash(git checkout:*)",
+    "Bash(gh api:*)",
+    "WebFetch(domain:docs.anthropic.com)"
+  ],
   "hooks": {
     "PreToolUse": [
       {
