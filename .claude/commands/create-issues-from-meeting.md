@@ -19,9 +19,9 @@
 #### 引数なしの場合
 
 1. 以下のディレクトリから最新の `.md` ファイルを自動選択する:
-   - `docs/outputs/meetings/`
-   - `docs/outputs/requirements/`
-   - `docs/outputs/discussions/`
+   - `docs/outputs/{案件slug}/meetings/`
+   - `docs/outputs/{案件slug}/requirements.md`
+   - `docs/outputs/{案件slug}/discussions/`
 2. 複数ディレクトリに候補がある場合は AskUserQuestion でユーザーに選択を求める
 
 ### Step 2: アクションアイテムの抽出

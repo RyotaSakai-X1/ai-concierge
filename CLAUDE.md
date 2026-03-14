@@ -59,9 +59,24 @@
 | ディレクトリ | 用途 |
 |---|---|
 | `docs/specs/` | 設計仕様書 |
-| `docs/outputs/` | 実行結果・生成ファイル（Claude が生成） |
+| `docs/outputs/{案件slug}/` | 案件ごとの成果物（Claude が生成）。同じ案件の全出力を1フォルダに集約する |
 | `.claude/rules/` | エンジニアリングルール（自動注入） |
 | `knowledge/` | ドメイン知識（人間が管理） |
+
+### 案件フォルダの構成
+
+各コマンドの出力は `docs/outputs/{案件slug}/` 配下に集約する:
+
+| パス | 生成コマンド |
+|------|------------|
+| `requirements.md` | `/define-requirements` |
+| `requirements-extracted.md` | `/extract-requirements`（要件定義書の場合） |
+| `screens/` | `/generate-screens` |
+| `wireframes/` | `/wireframe` |
+| `estimate-doc.md` | `/create-estimate-doc` |
+| `meetings/` | `/extract-requirements`（MTGレポートの場合） |
+
+`{案件slug}` はプロジェクト名から英語の短いキーワードで生成する。同じ案件では全コマンドで同じ slug を使うこと。
 
 ## 出力品質基準
 
