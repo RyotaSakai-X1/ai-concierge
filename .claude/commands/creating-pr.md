@@ -12,11 +12,17 @@
 ### Step 1: 前提チェック
 
 1. `git status` で現在のブランチと変更状態を確認する
-2. worktree 内で実行されているかを判定する（`git worktree list` でカレントディレクトリが worktree 内か確認）
-3. **通常実行（main ブランチ上）**: Step 3 でブランチ作成
-4. **worktree 内実行**: 既にブランチ上のためブランチ作成をスキップし、Step 4 へ
-5. **main 以外のブランチかつ worktree でもない場合**: 現在のブランチ名を確認し、そのブランチでPR作成を続行するか確認
-6. **変更（staged / unstaged / untracked）がゼロの場合**: 「変更がありません。先にファイルを編集してから `/creating-pr` を実行してください。」と伝えて終了する
+2. worktree 内で実行されているかを判定する: `git rev-parse --git-dir` と `git rev-parse --git-common-dir` を比較し、異なれば worktree 内
+3. worktree 内の場合、`git branch --show-current` で現在のブランチ名を取得しておく（以降のステップで使用）
+4. 実行コンテキストに応じた分岐:
+
+| コンテキスト | 判定条件 | 次のステップ |
+|------------|---------|------------|
+| 通常実行（main ブランチ上） | worktree でない かつ main ブランチ | Step 3 でブランチ作成 |
+| worktree 内実行 | worktree 検出 | ブランチ作成スキップ → Step 4 へ |
+| 既存ブランチ上 | worktree でない かつ main 以外 | 現ブランチでPR作成を続行するか確認 |
+
+5. **変更（staged / unstaged / untracked）がゼロの場合**: 「変更がありません。先にファイルを編集してから `/creating-pr` を実行してください。」と伝えて終了する
 
 ### Step 2: 変更内容の分析
 
@@ -39,7 +45,14 @@
 
 ### Step 5: プッシュ
 
-`git push -u origin feature/YYYY-MM-DD-{slug}` を実行する。
+プッシュ対象のブランチ名を決定する:
+
+| コンテキスト | ブランチ名 |
+|------------|----------|
+| 通常実行 | Step 3 で作成した `feature/YYYY-MM-DD-{slug}` |
+| worktree 内実行 | Step 1 で取得した現在のブランチ名（`git branch --show-current`） |
+
+`git push -u origin {ブランチ名}` を実行する。
 
 ネットワークエラーの場合は最大4回、指数バックオフ（2s, 4s, 8s, 16s）でリトライする。
 
@@ -74,4 +87,10 @@ worktree 内実行の場合はこのステップをスキップする（worktree
 - 危険な操作（force push, ブランチ削除等）は絶対に行わない
 - コミット前に変更内容のサマリをユーザーに表示してから進める
 - `.env` や秘密情報を含むファイルがあれば警告する
-- worktree 内で実行された場合、ブランチ名は worktree が自動設定したものを使用する
+
+### worktree 内実行時の注意
+
+- ブランチ名は worktree が自動設定したものを使用する（自分でブランチを作成しない）
+- worktree 内のパスは通常のリポジトリパスと異なるため、`git rev-parse --show-toplevel` でルートを確認する
+- worktree 完了後のクリーンアップは呼び出し元（`/parallel-work` 等）が管理するため、worktree の削除は行わない
+- worktree 分離ルールに従い、他の worktree やメインの作業ディレクトリを変更しない（詳細は `.claude/rules/git-workflow.md` の「Worktree 分離ルール」を参照）
