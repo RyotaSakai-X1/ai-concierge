@@ -27,7 +27,7 @@
 
 ### Step 2: スプレッドシートの内容を取得
 
-`mcp__google-sheets__list_sheets` でシート一覧を取得し、次に `mcp__google-sheets__get_sheet_data` で機能要件が記載されているシートのデータを取得してください。
+`mcp__google-workspace__get_spreadsheet_info` でシート一覧を取得し、次に `mcp__google-workspace__read_sheet_values` で機能要件が記載されているシートのデータを取得してください。
 
 パラメータ: `spreadsheet_id` に抽出した ID、`sheet` に対象シート名を指定する。
 
@@ -101,11 +101,11 @@
 | ----------------------------------------- | ---------------- |
 | `工数` / `見積` / `人日` / `工数（人日）` | 工数を書き出す列 |
 
-**列が存在しない場合**: `mcp__google-sheets__add_columns` で最終列の右に 1 列追加し、ヘッダー行に「工数（人日）」を設定する。パラメータは `spreadsheet_id`、`sheet`、`count: 1`、`start_column` に最終列のインデックス + 1 を指定する。
+**列が存在しない場合**: `mcp__google-workspace__modify_sheet_values` で最終列の右隣のヘッダー行に「工数（人日）」を書き込む。パラメータは `spreadsheet_id`、`range_name`（例: `シート名!G1`）、`values`（`[["工数（人日）"]]`）を指定する。
 
 #### 6-2: 工数データの書き出し
 
-`mcp__google-sheets__update_cells` を使用して工数を書き出す。パラメータは `spreadsheet_id`、`sheet`、`range`（例: `F2:F100`）、`data`（各行の工数を配列で指定）。
+`mcp__google-workspace__modify_sheet_values` を使用して工数を書き出す。パラメータは `spreadsheet_id`、`sheet`、`range`（例: `F2:F100`）、`data`（各行の工数を配列で指定）。
 
 **重要**:
 
@@ -135,7 +135,7 @@
 - **ゲオ**: `1kpoEmeaIu2xdNYkJwi7BBaGciwEHxrpsmVlrOvkNpuU`
 - **マリン**: `1fh9EWCTQ-bz2hvPyrb4-NGnT5ZYVirFY0BvQJnrZFlI`
 
-これらのスプレッドシートにアクセス可能な場合は、`mcp__google-sheets__get_sheet_data` で類似機能の過去見積りを参照し、見積りの精度を向上させてください。
+これらのスプレッドシートにアクセス可能な場合は、`mcp__google-workspace__read_sheet_values` で類似機能の過去見積りを参照し、見積りの精度を向上させてください。
 
 ## 計算ルール
 
