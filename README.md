@@ -1,6 +1,6 @@
 # ai-concierge
 
-## これは何？
+## What's this?
 
 チーム全員が AI（Claude Code）を使って業務を自動化するための実験プロジェクトです。
 
