@@ -18,6 +18,7 @@ Claude Code のチャットで使える自動化コマンドの一覧です。
 | `/estimating` | スプレッドシートの機能要件から工数を自動見積もり | `/estimating https://docs.google.com/spreadsheets/d/xxx/edit` |
 | `/generating-spec` | 仕様書から実装計画・技術設計を生成 | `/generating-spec docs/specs/2026-03-09-xxx.md` |
 | `/executing-plan` | タスクリストを順次自律実行 | `/executing-plan docs/outputs/xxx/tasks.md` |
+| `/extract-requirements` | ヒアリングデータから課題・要望・機能要件を構造化抽出 | `/extract-requirements https://drive.google.com/drive/folders/xxx` |
 | `/checking-ready` | 指定イシューの着手可否を依存関係から判定 | `/checking-ready 12` |
 
 ## コマンドを追加したい場合
