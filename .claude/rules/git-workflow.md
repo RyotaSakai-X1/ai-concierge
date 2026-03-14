@@ -38,10 +38,8 @@
 
 - PR がマージされたら、リモート・ローカルともにブランチを削除する
 - 新しい PR 作成時やセッション開始時に、マージ済みブランチが残っていたら自動で掃除する
-  ```bash
-  git fetch --prune
-  git branch --merged main | grep -v '^\*\|main' | xargs -r git branch -d
-  ```
+  - `git fetch --prune` でリモート追跡ブランチを整理
+  - `git branch --merged main` でマージ済みブランチを確認し削除
 
 ## Worktree 並列実行
 
@@ -51,29 +49,49 @@ worktree で作成されるブランチも通常と同じ命名規則に従う:
 - `feature/YYYY-MM-DD-{slug}`
 - `fix/YYYY-MM-DD-{slug}`
 
+### Worktree 分離ルール
+
+各サブエージェントは独立した git worktree で作業する。worktree 間でファイルを直接共有しない。
+
+| やってよいこと | やってはいけないこと |
+|--------------|-------------------|
+| worktree 内でのファイル作成・編集・削除 | 他の worktree のファイルを直接参照・変更 |
+| worktree 内でのコミット・プッシュ | main ブランチへの直接コミット |
+| `gh` CLI によるPR作成 | force push |
+| `gh issue view` による情報取得 | 他のブランチの変更を取り込む（リベース等） |
+
 ### 並列PR作成時のマージ順序
 
 複数の PR が同時に作成された場合:
 
-1. **独立した変更**: 順序を問わずマージ可能
-2. **ファイル競合あり**: 先にマージした PR の変更を後続 PR にリベースしてからマージ
-3. **論理的依存あり**: 依存元を先にマージし、依存先は依存元マージ後にリベース
+1. **独立した変更**: 順序を問わずマージ可能。全て squash merge を推奨
+2. **ファイル競合あり**: 変更行数が少ない PR を先にマージ → 後続 PR のブランチで `git rebase main` → コンフリクトがあれば手動解消 → マージ
+3. **論理的依存あり**: 依存元を先にマージ → 依存先のブランチで `git rebase main` → マージ
 
 ### コンフリクト検出
 
-並列実行完了後、以下のコマンドでコンフリクトを事前検出する:
+#### 事前検出（実行前）
 
-```bash
-# 各ブランチ間の差分ファイル一覧を比較
-git diff --name-only main..branch-a
-git diff --name-only main..branch-b
-# 重複するファイルがあればコンフリクトの可能性を警告
-```
+イシューの本文から影響ファイルを推定し、重複をチェックする:
+
+1. イシュー本文の「やること」セクションからファイルパスを抽出
+2. ファイルパスが重複するイシューペアを検出
+3. 重複がある場合は警告を出す（実行は可能）
+
+#### 事後検出（実行後）
+
+並列実行完了後、各ブランチの変更ファイルを比較する:
+
+1. `git diff --name-only main..branch-a` と `git diff --name-only main..branch-b` で各ブランチの変更ファイル一覧を取得
+2. 重複するファイルがあればコンフリクトの可能性を警告
+3. 重複ファイルがある場合はマージ順序を提案する（変更行数が少ない方を先に）
+4. 後続 PR はリベースが必要になる可能性を報告
 
 ### worktree のクリーンアップ
 
 - PR 作成完了後、worktree は自動的にクリーンアップされる（Agent tool が管理）
 - 手動で残った worktree は `git worktree prune` で掃除する
+- セッション開始時に `git worktree list` で残存 worktree を確認する
 
 ## コミット
 
@@ -94,19 +112,16 @@ GitHub Projects のステータスを以下のタイミングで変更する：
 
 ### 更新コマンド
 
-```bash
-# 1. イシューの Project Item ID を取得
-ITEM_ID=$(gh project item-list 1 --owner RyotaSakai-X1 --format json \
-  | jq -r '.items[] | select(.content.number == {イシュー番号} and .content.type == "Issue") | .id')
+1. イシューの Project Item ID を取得: `gh project item-list 1 --owner RyotaSakai-X1 --format json` で一覧を取得し、該当イシュー番号の `.id` を抽出
+2. ステータスを変更: `gh project item-edit` で以下のパラメータを指定
 
-# 2. ステータスを変更
-gh project item-edit --project-id PVT_kwHOB_Hl9M4BRRtG \
-  --id "$ITEM_ID" \
-  --field-id PVTSSF_lAHOB_Hl9M4BRRtGzg_Jsyk \
-  --single-select-option-id {ステータスのオプションID}
-```
+| パラメータ | 値 |
+|-----------|-----|
+| --project-id | PVT_kwHOB_Hl9M4BRRtG |
+| --field-id | PVTSSF_lAHOB_Hl9M4BRRtGzg_Jsyk |
 
-ステータスのオプション ID:
-- `47fc9ee4` — In progress
-- `df73e18b` — In review
-- `98236657` — Done
+| ステータス | オプション ID |
+|-----------|-------------|
+| In progress | 47fc9ee4 |
+| In review | df73e18b |
+| Done | 98236657 |
