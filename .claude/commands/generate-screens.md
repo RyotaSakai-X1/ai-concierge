@@ -5,7 +5,7 @@
 ## 引数
 
 - `$ARGUMENTS` — 以下のいずれか:
-  - `/extract-requirements` の出力ファイルパス（例: `docs/outputs/requirements/2026-03-11-xxx.md`）
+  - `/extract-requirements` または `/define-requirements` の出力ファイルパス（例: `docs/outputs/{案件slug}/requirements.md`）
   - テキストでの直接指示（例: `ダッシュボード画面とユーザー管理画面を設計して`）
 
 ## 実行手順
@@ -63,16 +63,15 @@ Mermaid の `graph TD` 形式で画面遷移図を作成する:
 
 以下のディレクトリ構成で保存する:
 
-| パス                                          | 内容                     |
-| --------------------------------------------- | ------------------------ |
-| `docs/outputs/prototypes/YYYY-MM-DD-{slug}/`  | 出力ルートディレクトリ   |
-| `screens.md`                                  | 画面一覧                 |
-| `flow.md`                                     | 画面遷移図（Mermaid）    |
-| `layouts/01-{画面名slug}.md`                  | 各画面のレイアウト概要   |
-| `layouts/02-{画面名slug}.md`                  | （画面数分繰り返し）     |
+| パス                                              | 内容                     |
+| ------------------------------------------------- | ------------------------ |
+| `docs/outputs/{案件slug}/screens/`                 | 出力ルートディレクトリ   |
+| `screens.md`                                      | 画面一覧                 |
+| `flow.md`                                         | 画面遷移図（Mermaid）    |
+| `layouts/01-{画面名slug}.md`                      | 各画面のレイアウト概要   |
+| `layouts/02-{画面名slug}.md`                      | （画面数分繰り返し）     |
 
-- `YYYY-MM-DD` は今日の日付
-- `{slug}` はプロジェクト名から生成（英数字・ハイフン）
+- `{案件slug}` はプロジェクト名から英語の短いキーワードで生成（英数字・ハイフン）。同じ案件の別コマンド出力と同じ slug を使う
 - 各ファイルの先頭にプロジェクト名・作成日・バージョンを記載する
 
 #### screens.md の構成

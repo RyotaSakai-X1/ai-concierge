@@ -5,7 +5,7 @@
 ## 引数
 
 - `$ARGUMENTS` — 以下のいずれか:
-  - `/generate-screens` の出力ディレクトリパス（例: `docs/outputs/prototypes/2026-03-14-xxx/`）
+  - `/generate-screens` の出力ディレクトリパス（例: `docs/outputs/{案件slug}/screens/`）
   - `/define-requirements` または `/extract-requirements` の出力ファイルパス
   - Google Sheets URL（要件一覧が記載されたスプレッドシート）
   - テキストでの直接指示（例: `ユーザー登録〜ダッシュボードまでの画面遷移図`）
@@ -104,7 +104,7 @@
 - **含まれる画面数**: 図に含まれる画面/ノードの数
 - **Mermaid コード**: 生成したコードをローカルにも保存する場合のパス
 
-Mermaid コードのローカル保存先: `docs/outputs/wireframes/YYYY-MM-DD-{slug}/` 配下に図の種類ごとのファイル
+Mermaid コードのローカル保存先: `docs/outputs/{案件slug}/wireframes/` 配下に図の種類ごとのファイル。`{案件slug}` は同じ案件の別コマンド出力と同じ slug を使う
 
 | ファイル | 内容 |
 |---------|------|

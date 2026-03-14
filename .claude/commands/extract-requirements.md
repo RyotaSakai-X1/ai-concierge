@@ -9,7 +9,7 @@
 - `$ARGUMENTS` — 以下のいずれか:
   - Google Drive フォルダ URL（素材が格納されたフォルダ）
   - Google Docs URL（Gemini メモ等の単体ドキュメント）
-  - ローカルファイルパス（`docs/outputs/meetings/*.md` 等の議事録）
+  - ローカルファイルパス（`docs/outputs/{案件slug}/meetings/*.md` 等の議事録）
 
 ## 実行手順
 
@@ -243,17 +243,19 @@
 
 ### Step 4: 出力ファイルの保存
 
-種別に応じて出力先ディレクトリを決定する:
+案件フォルダ内に種別ごとのファイルとして保存する:
 
-| 種別                 | 出力先                                                 |
-| -------------------- | ------------------------------------------------------ |
-| 要件定義書           | `docs/outputs/requirements/YYYY-MM-DD-{slug}.md`       |
-| MTGインサイトレポート | `docs/outputs/meetings/YYYY-MM-DD-{slug}-insights.md`  |
-| ナレッジノート       | `docs/outputs/knowledge/YYYY-MM-DD-{slug}.md`          |
-| 検討レポート         | `docs/outputs/discussions/YYYY-MM-DD-{slug}.md`        |
+| 種別                 | 出力先                                                       |
+| -------------------- | ------------------------------------------------------------ |
+| 要件定義書           | `docs/outputs/{案件slug}/requirements-extracted.md`           |
+| MTGインサイトレポート | `docs/outputs/{案件slug}/meetings/YYYY-MM-DD-insights.md`    |
+| ナレッジノート       | `docs/outputs/{案件slug}/knowledge/YYYY-MM-DD.md`            |
+| 検討レポート         | `docs/outputs/{案件slug}/discussions/YYYY-MM-DD.md`          |
 
-- `YYYY-MM-DD` は今日の日付、`{slug}` はテーマ・クライアント名から生成（英数字・ハイフン）
+- `{案件slug}` はクライアント名・テーマから英語の短いキーワードで生成（英数字・ハイフン）。同じ案件の別コマンド出力と同じ slug を使う
+- `YYYY-MM-DD` は今日の日付
 - ディレクトリが存在しない場合は作成する
+- 既に同じ案件フォルダが存在する場合は、その中に追加する
 
 ### Step 5: 結果の報告
 

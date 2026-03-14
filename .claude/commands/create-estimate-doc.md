@@ -97,10 +97,9 @@ AskUserQuestion で以下の情報を収集する:
 
 ### Step 5: 出力ファイルの保存
 
-出力先: `docs/outputs/estimation/YYYY-MM-DD-{slug}/estimate-doc.md`
-- `YYYY-MM-DD` は今日の日付
-- `{slug}` はプロジェクト名から英語の短いキーワードで生成
-- ディレクトリが存在しない場合は作成する
+出力先: `docs/outputs/{案件slug}/estimate-doc.md`
+- `{案件slug}` はプロジェクト名から英語の短いキーワードで生成（英数字・ハイフン）。同じ案件の別コマンド出力と同じ slug を使う
+- ディレクトリが存在しない場合は作成する。既に同じ案件フォルダがあればその中に追加する
 
 ### Step 6: 結果の報告
 
@@ -115,7 +114,7 @@ AskUserQuestion で以下の情報を収集する:
 
 | アクション | コマンド |
 |-----------|---------|
-| 見積書のレビュー | `/reviewing docs/outputs/estimation/YYYY-MM-DD-{slug}/estimate-doc.md` |
+| 見積書のレビュー | `/reviewing docs/outputs/{案件slug}/estimate-doc.md` |
 | PR 作成 | `/creating-pr 見積書を作成` |
 
 ## 注意事項
