@@ -22,18 +22,15 @@
 
 ## 並列実行アーキテクチャ
 
-複数の独立したイシューを同時に処理する場合、Agent tool の `isolation: "worktree"` を活用する：
+複数の独立したイシューを同時に処理する場合、Agent Teams（メンバー間通信）+ worktree（ファイル分離）のハイブリッド方式を採用する:
 
-```
-/parallel-work #12 #14 #16
+1. テックリードがチームを作成し、各メンバーにイシューを割り当てる
+2. 各メンバーが `git worktree add` で独自 worktree を作成し、独立ブランチで作業する
+3. メンバーは共有タスクリストに変更予定ファイルを宣言し、競合を事前回避する
+4. 各メンバーが実装 → セルフレビュー → PR 作成を実行する
+5. テックリードが結果を集約し、コンフリクト検出 → マージ順序を提案する
 
-→ 依存チェック → 独立イシューを検出
-→ Agent(isolation: "worktree") × N で並列実行
-  ├── worktree-1: #12 → 分析 → 実装 → セルフレビュー → PR
-  ├── worktree-2: #14 → 分析 → 実装 → セルフレビュー → PR
-  └── worktree-3: #16 → 分析 → 実装 → セルフレビュー → PR
-→ 結果集約 → コンフリクト検出 → マージ順序提案
-```
+> Agent Teams 未有効時は従来の Agent tool + `isolation: "worktree"` 方式にフォールバックする。
 
 詳細は `.claude/rules/parallel-execution.md` を参照。
 
@@ -47,7 +44,7 @@
 | イシュー管理 | `.claude/rules/issue-management.md` | 議論から自発的にイシュー起票、ラベル必須 |
 | レビュー対応 | `.claude/rules/review-response.md` | 質問→回答のみ、修正依頼→修正+報告、曖昧→確認してから |
 | エンジニア行動 | `.claude/rules/engineer-behavior.md` | セッション開始手順、自律行動範囲、報告方針 |
-| 並列実行 | `.claude/rules/parallel-execution.md` | worktree 分離、コンフリクト検出、マージ戦略 |
+| 並列実行 | `.claude/rules/parallel-execution.md` | Agent Teams チーム分離、メンバー間通信、worktree 分離、マージ戦略 |
 
 ## ユーザーへの確認方法
 
