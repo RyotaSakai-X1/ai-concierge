@@ -18,6 +18,7 @@ Claude Code のチャットで使える自動化コマンドの一覧です。
 | `/estimating` | スプレッドシートの機能要件から工数を自動見積もり | `/estimating https://docs.google.com/spreadsheets/d/xxx/edit` |
 | `/generating-spec` | 仕様書から実装計画・技術設計を生成 | `/generating-spec docs/specs/2026-03-09-xxx.md` |
 | `/executing-plan` | タスクリストを順次自律実行 | `/executing-plan docs/outputs/xxx/tasks.md` |
+| `/define-requirements` | 案件概要から要件定義書を作成し Google Sheets に書き出し | `/define-requirements https://docs.google.com/document/d/xxx` |
 | `/extract-requirements` | ミーティング・ヒアリングデータから情報を構造化抽出 | `/extract-requirements https://drive.google.com/drive/folders/xxx` |
 | `/generate-screens` | 要件定義から画面一覧・画面遷移図・レイアウトを自動生成 | `/generate-screens docs/outputs/requirements/2026-03-11-xxx.md` |
 | `/create-issues-from-meeting` | 議事録・レポートのアクションアイテムからイシュー一括起票 | `/create-issues-from-meeting docs/outputs/meetings/2026-03-11-xxx.md` |
