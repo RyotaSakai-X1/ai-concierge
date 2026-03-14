@@ -18,9 +18,7 @@
 
 ## 使用例
 
-```
-/generating-spec docs/specs/2025-01-01-feedback-system.md
-```
+`/generating-spec docs/specs/2025-01-01-feedback-system.md` で実行する。
 
 ## 注意事項
 

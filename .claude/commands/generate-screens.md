@@ -63,15 +63,13 @@ Mermaid の `graph TD` 形式で画面遷移図を作成する:
 
 以下のディレクトリ構成で保存する:
 
-```
-docs/outputs/prototypes/YYYY-MM-DD-{slug}/
-  ├── screens.md    — 画面一覧
-  ├── flow.md       — 画面遷移図（Mermaid）
-  └── layouts/
-      ├── 01-{画面名slug}.md  — 各画面のレイアウト概要
-      ├── 02-{画面名slug}.md
-      └── ...
-```
+| パス                                          | 内容                     |
+| --------------------------------------------- | ------------------------ |
+| `docs/outputs/prototypes/YYYY-MM-DD-{slug}/`  | 出力ルートディレクトリ   |
+| `screens.md`                                  | 画面一覧                 |
+| `flow.md`                                     | 画面遷移図（Mermaid）    |
+| `layouts/01-{画面名slug}.md`                  | 各画面のレイアウト概要   |
+| `layouts/02-{画面名slug}.md`                  | （画面数分繰り返し）     |
 
 - `YYYY-MM-DD` は今日の日付
 - `{slug}` はプロジェクト名から生成（英数字・ハイフン）
