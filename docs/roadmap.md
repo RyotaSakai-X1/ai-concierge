@@ -10,12 +10,25 @@ Claude Code CLI（テックリードエージェント）
   ├── [コーディング系]
   │     ├── /work-on-issue → 単体イシューの実装〜PR
   │     ├── /parallel-work → 複数イシューの並列実行（worktree 分離）
-  │     └── /reviewing     → セルフレビュー・PRレビュー
+  │     ├── /reviewing     → セルフレビュー・PRレビュー
+  │     └── /creating-pr   → 変更からブランチ作成〜PR作成
   ├── [分析系]
   │     ├── /extract-requirements → ヒアリングデータから要件抽出
   │     ├── /estimating           → 工数見積もり
   │     └── /generate-screens     → 画面一覧・画面遷移図の生成
-  └── hooks → 自動ガードレール（CI・lint・機密チェック）
+  ├── [テスター系]
+  │     ├── /generate-test-cases → コードベース+仕様書からテスト項目を抽出しスプシに書き出し
+  │     ├── /run-ui-test         → テスト項目に基づくUIテスト実行・結果記録
+  │     └── /test-report         → テスト結果集計・NG項目からバグイシュー自動起票
+  ├── [デザイナー系]
+  │     ├── /sync-design-system → Figma からデザイントークン抽出・保存
+  │     ├── /design             → デザインシステム準拠の UI コード生成
+  │     └── /design-review      → UI コードのデザインシステム適合性レビュー
+  └── [横断系]
+        ├── /briefing        → エンジニアリングブリーフィング
+        ├── /generating-spec → 仕様書から実装計画・技術設計を生成
+        ├── /executing-plan  → タスクリストを順次自律実行
+        └── /checking-ready  → イシュー着手可否チェック
 ```
 
 ### ゴールに至るまでの3フェーズ
@@ -86,6 +99,26 @@ main への直コミットを廃止し、すべての作業をイシュー起点
 | `/extract-requirements` | ヒアリングデータから要件抽出 | #36 |
 | `/estimating` | 工数見積もり | 整備済み |
 | `/generate-screens` | 画面一覧・画面遷移図の生成 | #37 |
+
+#### 6. テスター系コマンドの整備
+
+テスト管理をスプレッドシート連携で効率化する。現段階は手動実行+記録、将来的に Playwright MCP で自動化を拡張。
+
+| コマンド | 用途 | 備考 |
+|---------|------|------|
+| `/generate-test-cases` | コードベース+仕様書からテスト項目を抽出しスプシに書き出し | Google Workspace MCP 連携 |
+| `/run-ui-test` | テスト項目に基づくUIテスト実行・結果記録 | 現在は手順書生成+手動記録、将来 Playwright MCP で自動化 |
+| `/test-report` | テスト結果集計・NG項目からバグイシュー自動起票 | GitHub Issues 連携 |
+
+#### 7. デザイナー系コマンドの整備
+
+Figma MCP を活用し、デザインシステムの同期とUI実装の品質を担保する。
+
+| コマンド | 用途 | イシュー |
+|---------|------|---------|
+| `/sync-design-system` | Figma からデザイントークン抽出 → `knowledge/design-system.md` に保存 | #42 |
+| `/design` | デザインシステム準拠の UI コード生成 | #43 |
+| `/design-review` | UI コードのデザインシステム適合性レビュー | — |
 
 ---
 
