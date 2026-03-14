@@ -21,6 +21,7 @@ Claude Code のチャットで使える自動化コマンドの一覧です。
 | `/define-requirements` | 案件概要から要件定義書を作成し Google Sheets に書き出し | `/define-requirements https://docs.google.com/document/d/xxx` |
 | `/extract-requirements` | ミーティング・ヒアリングデータから情報を構造化抽出 | `/extract-requirements https://drive.google.com/drive/folders/xxx` |
 | `/generate-screens` | 要件定義から画面一覧・画面遷移図・レイアウトを自動生成 | `/generate-screens docs/outputs/requirements/2026-03-11-xxx.md` |
+| `/wireframe` | 要件・画面設計から FigJam に画面遷移図・フロー図を生成 | `/wireframe docs/outputs/prototypes/2026-03-14-xxx/` |
 | `/create-issues-from-meeting` | 議事録・レポートのアクションアイテムからイシュー一括起票 | `/create-issues-from-meeting docs/outputs/meetings/2026-03-11-xxx.md` |
 | `/checking-ready` | 指定イシューの着手可否を依存関係から判定 | `/checking-ready 12` |
 
