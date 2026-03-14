@@ -30,66 +30,44 @@
 ### Step 3: ブランチ作成
 
 1. ブランチ名を `feature/YYYY-MM-DD-{slug}` 形式で決定する（YYYY-MM-DD は今日の日付）
-2. 以下を実行:
-   ```bash
-   git checkout -b feature/YYYY-MM-DD-{slug}
-   ```
+2. `git checkout -b feature/YYYY-MM-DD-{slug}` を実行する
 
 ### Step 4: コミット
 
-1. すべての変更をステージング:
-   ```bash
-   git add -A
-   ```
-2. コミットを作成:
-   ```bash
-   git commit -m "コミットメッセージ"
-   ```
+1. `git add -A` ですべての変更をステージングする
+2. `git commit -m "コミットメッセージ"` でコミットを作成する
 
 ### Step 5: プッシュ
 
-```bash
-git push -u origin feature/YYYY-MM-DD-{slug}
-```
+`git push -u origin feature/YYYY-MM-DD-{slug}` を実行する。
 
 ネットワークエラーの場合は最大4回、指数バックオフ（2s, 4s, 8s, 16s）でリトライする。
 
 ### Step 6: PR作成
 
-`gh` CLI が使えるか確認する:
+`gh` CLI が使えるか確認する。
 
 **gh が使える場合:**
-```bash
-gh pr create --title "PRタイトル" --body "PR本文" --base main --assignee @me
-```
+
+`gh pr create --title "PRタイトル" --body "PR本文" --base main --assignee @me` を実行する。
 
 **gh が使えない場合:**
-以下のようにユーザーにURLを提示する:
-```
-✅ ブランチをプッシュしました！
-以下のURLからPRを作成してください:
 
-https://github.com/{owner}/{repo}/compare/main...feature/YYYY-MM-DD-{slug}?expand=1
+以下の情報をユーザーに提示する:
 
----
-📋 PRタイトル案: {タイトル}
-
-📝 PR本文案:
-{本文}
-```
+- PR作成用URL: `https://github.com/{owner}/{repo}/compare/main...feature/YYYY-MM-DD-{slug}?expand=1`
+- PRタイトル案
+- PR本文案
 
 ### Step 7: イシューステータスを In review に変更
 
-PR に `Closes #XX` で紐づけたイシューがある場合、`knowledge/rules/git-workflow.md` の「イシューステータスの更新」手順に従い、ステータスを **In review** に変更する。
+PR に `Closes #XX` で紐づけたイシューがある場合、`.claude/rules/git-workflow.md` の「イシューステータスの更新」手順に従い、ステータスを **In review** に変更する。
 
 ### Step 8: main に戻る
 
 worktree 内実行の場合はこのステップをスキップする（worktree はそのまま維持）。
 
-通常実行の場合:
-```bash
-git checkout main
-```
+通常実行の場合は `git checkout main` を実行する。
 
 ## 注意事項
 

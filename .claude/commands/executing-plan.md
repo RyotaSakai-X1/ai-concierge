@@ -27,9 +27,7 @@
 
 ## 使用例
 
-```
-/executing-plan docs/outputs/feedback-system/tasks.md
-```
+`/executing-plan docs/outputs/feedback-system/tasks.md` で実行する。
 
 ## 引数オプション
 

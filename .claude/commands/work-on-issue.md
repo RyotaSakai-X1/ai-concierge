@@ -21,23 +21,16 @@
 
 ### Step 2: 実行環境の判定
 
-worktree 内で実行されているかを判定する:
-
-```bash
-git rev-parse --show-toplevel
-```
+`git rev-parse --show-toplevel` で worktree 内で実行されているかを判定する。
 
 - **通常実行**（メインリポジトリ内）: Step 3 でブランチ作成
 - **worktree 内実行**（`/parallel-work` から呼ばれた場合）: 既にブランチ上なのでブランチ作成をスキップ
 
 ### Step 3: ブランチ作成（通常実行時のみ）
 
-1. `knowledge/rules/git-workflow.md` のブランチ命名規則に従う
+1. `.claude/rules/git-workflow.md` のブランチ命名規則に従う
 2. ブランチ名: `feature/YYYY-MM-DD-{slug}`（イシューの内容から slug を決定）
-3. 実行:
-   ```bash
-   git checkout -b feature/YYYY-MM-DD-{slug}
-   ```
+3. `git checkout -b feature/YYYY-MM-DD-{slug}` を実行する
 
 ### Step 4: 実装
 
@@ -59,19 +52,9 @@ git rev-parse --show-toplevel
 
 ### Step 6: PR作成
 
-1. 変更をコミット:
-   ```bash
-   git add -A
-   git commit -m "コミットメッセージ（日本語）"
-   ```
-2. プッシュ:
-   ```bash
-   git push -u origin {ブランチ名}
-   ```
-3. PR作成:
-   ```bash
-   gh pr create --title "PRタイトル" --body "PR本文" --base main --assignee @me
-   ```
+1. `git add -A` で変更をステージングし、`git commit -m "コミットメッセージ（日本語）"` でコミットする
+2. `git push -u origin {ブランチ名}` でプッシュする
+3. `gh pr create --title "PRタイトル" --body "PR本文" --base main --assignee @me` でPRを作成する
    - PR本文に `Closes #XX` を含めてイシューと紐づける
    - セルフレビュー結果のサマリを PR 本文に含める
 
