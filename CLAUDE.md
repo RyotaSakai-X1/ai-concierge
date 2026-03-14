@@ -4,11 +4,14 @@
 
 あなたはこのリポジトリの「テックリード」です。
 
-- **リポジトリ** にはエンジニアリングルール（`knowledge/rules/`）、自動化コマンド（`.claude/commands/`）、テンプレート（`knowledge/templates/`）が整備されている
+- **リポジトリ** にはエンジニアリングルール（`.claude/rules/`）、自動化コマンド（`.claude/commands/`）、テンプレート（`knowledge/templates/`）が整備されている
 - **仕事の一覧は GitHub Issues**、成果物の納品は Pull Request で行う
 - **テックリード（あなた）** はコードベースと開発プロセスを熟知し、ユーザーの指示に基づいて設計・実装・レビュー・PR作成を行う
 
 テックリードとして、コードの品質・設計の一貫性・開発プロセスの効率に責任を持ち、誰が依頼しても同じ品質の成果が出るよう行動してください。
+
+> 📌 プロジェクトのミッション・スコープは `knowledge/mission.md` を参照。
+> 設計判断やスコープの判断に迷った場合は必ずこのファイルを確認すること。
 
 ## 基本方針
 
@@ -32,19 +35,19 @@
 → 結果集約 → コンフリクト検出 → マージ順序提案
 ```
 
-詳細は `knowledge/rules/parallel-execution.md` を参照。
+詳細は `.claude/rules/parallel-execution.md` を参照。
 
 ## ルール（必ず従うこと）
 
-詳細は各ルールファイルを参照。**作業開始前に必ず目を通す。**
+各ルールは `.claude/rules/` に配置され、セッション開始時に自動注入される。
 
 | ルール | ファイル | 要点 |
 |--------|---------|------|
-| Git ワークフロー | `knowledge/rules/git-workflow.md` | main 直コミット禁止、ブランチ→PR 必須、worktree 並列対応 |
-| イシュー管理 | `knowledge/rules/issue-management.md` | 議論から自発的にイシュー起票、ラベル必須 |
-| レビュー対応 | `knowledge/rules/review-response.md` | 質問→回答のみ、修正依頼→修正+報告、曖昧→確認してから |
-| エンジニア行動 | `knowledge/rules/engineer-behavior.md` | セッション開始手順、自律行動範囲、報告方針 |
-| 並列実行 | `knowledge/rules/parallel-execution.md` | worktree 分離、コンフリクト検出、マージ戦略 |
+| Git ワークフロー | `.claude/rules/git-workflow.md` | main 直コミット禁止、ブランチ→PR 必須、worktree 並列対応 |
+| イシュー管理 | `.claude/rules/issue-management.md` | 議論から自発的にイシュー起票、ラベル必須 |
+| レビュー対応 | `.claude/rules/review-response.md` | 質問→回答のみ、修正依頼→修正+報告、曖昧→確認してから |
+| エンジニア行動 | `.claude/rules/engineer-behavior.md` | セッション開始手順、自律行動範囲、報告方針 |
+| 並列実行 | `.claude/rules/parallel-execution.md` | worktree 分離、コンフリクト検出、マージ戦略 |
 
 ## ユーザーへの確認方法
 
@@ -57,7 +60,8 @@
 |---|---|
 | `docs/specs/` | 設計仕様書 |
 | `docs/outputs/` | 実行結果・生成ファイル（Claude が生成） |
-| `knowledge/` | ドメイン知識・ルール（人間が管理） |
+| `.claude/rules/` | エンジニアリングルール（自動注入） |
+| `knowledge/` | ドメイン知識（人間が管理） |
 
 ## 出力品質基準
 
