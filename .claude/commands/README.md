@@ -16,6 +16,7 @@ Claude Code のチャットで使える自動化コマンドの一覧です。
 | `/reviewing` | 仕様書・成果物・PRをチェックリストに基づいてレビュー | `/reviewing docs/specs/2026-03-09-xxx.md` |
 | `/briefing` | PR状況・CI・worktree状態・レビュー依頼を報告 | `/briefing` |
 | `/estimating` | スプレッドシートの機能要件から工数を自動見積もり | `/estimating https://docs.google.com/spreadsheets/d/xxx/edit` |
+| `/create-estimate-doc` | 工数見積もりスプシから見積書を自動生成 | `/create-estimate-doc https://docs.google.com/spreadsheets/d/xxx/edit` |
 | `/generating-spec` | 仕様書から実装計画・技術設計を生成 | `/generating-spec docs/specs/2026-03-09-xxx.md` |
 | `/executing-plan` | タスクリストを順次自律実行 | `/executing-plan docs/outputs/xxx/tasks.md` |
 | `/define-requirements` | 案件概要から要件定義書を作成し Google Sheets に書き出し | `/define-requirements https://docs.google.com/document/d/xxx` |
