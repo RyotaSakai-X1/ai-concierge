@@ -31,7 +31,7 @@
 5. テックリードが各メンバーの成果をレビューし、ユーザーに報告する
 6. ユーザー承認後、テックリードがプッシュ・PR 作成を実行する
 
-> Agent Teams 未有効時は Agent tool の `isolation: "worktree"` を使い、各イシューごとにサブエージェントを並列起動する方式にフォールバックする。
+> 並列実行には Agent Teams（`CLAUDE_CODE_EXPERIMENTAL_AGENT_TEAMS=1`）が必要。未有効の場合は `/work-on-issue` による単体イシュー対応で順次実行する。
 
 詳細は `.claude/rules/parallel-execution.md` を参照。
 
