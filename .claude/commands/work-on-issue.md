@@ -32,6 +32,7 @@
 2. ブランチ名: `feature/YYYY-MM-DD-{slug}`（イシューの内容から slug を決定）
 3. `git checkout -b feature/YYYY-MM-DD-{slug}` を実行する
 4. イシューのステータスを **In progress** に変更する（`git-workflow.md` の「更新コマンド」セクション参照）
+5. `gh issue edit $ARGUMENTS --add-assignee @me` でイシューに自分をアサインする
 
 ### Step 4: 実装
 
