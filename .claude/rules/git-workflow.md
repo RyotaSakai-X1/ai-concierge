@@ -114,13 +114,16 @@ GitHub Projects のステータスを以下のタイミングで変更する：
 
 | タイミング | ステータス |
 |-----------|-----------|
+| イシュー起票時（トリアージ完了） | **Ready** |
 | イシューに着手（ブランチ作成時） | **In progress** |
 | PR 作成後 | **In review** |
 | PR マージ後 | **Done**（GitHub の自動化で設定済み） |
 
+> Backlog はトリアージ前のイシューが入る場所。優先度が決まったら Ready に昇格する。
+
 ### 更新コマンド
 
-1. イシューの Project Item ID を取得: `gh project item-list 1 --owner RyotaSakai-X1 --format json` で一覧を取得し、該当イシュー番号の `.id` を抽出
+1. イシューの Project Item ID を取得: `gh project item-list 1 --owner RyotaSakai-X1 --format json --limit 200` で一覧を取得し、該当イシュー番号の `.id` を抽出
 2. ステータスを変更: `gh project item-edit` で以下のパラメータを指定
 
 | パラメータ | 値 |
@@ -130,6 +133,8 @@ GitHub Projects のステータスを以下のタイミングで変更する：
 
 | ステータス | オプション ID |
 |-----------|-------------|
+| Backlog | f75ad846 |
+| Ready | 61e4505c |
 | In progress | 47fc9ee4 |
 | In review | df73e18b |
 | Done | 98236657 |
