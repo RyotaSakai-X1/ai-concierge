@@ -260,6 +260,32 @@ graph LR
     TL -->|"/parallel-work で生成"| Temp
 ```
 
+## プロジェクト構造の設計思想
+
+このリポジトリは **Why / Map / Rules / Workflows** の4象限でプロジェクト知識を整理しています。
+
+| 役割 | 何を伝えるか | このリポジトリでの対応 |
+|------|------------|---------------------|
+| **Why** | このシステムは何をするのか | `CLAUDE.md`, `knowledge/mission.md` |
+| **Map** | どこに何があるのか | `knowledge/`, `docs/` |
+| **Rules** | 何をしていい/ダメなのか | `.claude/rules/`, `.claude/hooks/` |
+| **Workflows** | どうやって作業を進めるのか | `.claude/commands/` |
+
+### Rules と Hooks の役割分担
+
+- **Rules**（`.claude/rules/`）: プロンプト注入でモデルに伝える行動規範。状況に応じた柔軟な判断を促す
+- **Hooks**（`.claude/hooks/`）: シェルスクリプトによる物理的なガードレール。モデルが「忘れる」ことがあっても hooks は忘れない
+
+| Hook | トリガー | 動作 |
+|------|---------|------|
+| `check-secrets.sh` | `git commit` 実行時 | 機密情報がステージングされていたらブロック |
+| `block-main-commit.sh` | `git commit` 実行時 | main ブランチでの直接コミットをブロック |
+| `warn-pr-without-review.sh` | `gh pr create` 実行時 | セルフレビュー未実施の警告 |
+| `warn-knowledge-change.sh` | `knowledge/` ファイル編集時 | 影響範囲の大きい変更への注意喚起 |
+| `block-rules-change.sh` | `.claude/rules/` ファイル編集時 | AI によるルール変更をブロック |
+
+> 💡 モジュール別 CLAUDE.md（例: `src/auth/CLAUDE.md`）は実装フェーズで検討予定。現時点ではルートの `CLAUDE.md` + `rules/` で一元管理している。
+
 ## フォルダ構成の概要
 
 | フォルダ            | 何が入ってる？                                    |
