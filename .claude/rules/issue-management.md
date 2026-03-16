@@ -16,6 +16,7 @@
 3. `docs/roadmap.md` に追記する
 4. `gh issue create` で起票する
 5. イシュー間の依存関係を本文に記載する
+6. イシューを GitHub Projects の **Ready** ステータスに設定する（`git-workflow.md` の「更新コマンド」セクション参照）
 
 ## イシューのフォーマット
 
