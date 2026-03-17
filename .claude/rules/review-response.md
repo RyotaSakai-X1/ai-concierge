@@ -1,3 +1,7 @@
+---
+description: "GitHub PR レビューでメンションされた際の対応判断基準"
+---
+
 # @claude レビュー対応ルール
 
 GitHub 上で `@claude` とメンションされた際の対応方針。
