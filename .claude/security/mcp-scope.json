@@ -1,0 +1,5 @@
+{
+  "_comment": "スコープ制限設定。空配列 = 制限なし（fail-open）。IDを追加するとホワイトリストモードに切替。",
+  "allowed_figma_file_keys": [],
+  "allowed_drive_folder_ids": []
+}
