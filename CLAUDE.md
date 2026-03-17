@@ -46,6 +46,7 @@
 | レビュー対応 | `.claude/rules/review-response.md` | 質問→回答のみ、修正依頼→修正+報告、曖昧→確認してから |
 | エンジニア行動 | `.claude/rules/engineer-behavior.md` | セッション開始手順、自律行動範囲、報告方針 |
 | 並列実行 | `.claude/rules/parallel-execution.md` | Agent Teams チーム分離、メンバー間通信、worktree 分離、マージ戦略 |
+| MCP セキュリティ | `.claude/rules/mcp-security.md` | MCP ツール最小権限、プロンプトインジェクション防御 |
 
 ## ユーザーへの確認方法
 
