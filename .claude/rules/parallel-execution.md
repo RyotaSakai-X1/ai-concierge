@@ -1,3 +1,7 @@
+---
+description: "Agent Teams + worktree による並列実行のチーム分離・通信・マージ戦略"
+---
+
 # 並列実行ルール（Agent Teams + worktree ハイブリッド）
 
 ## 概要
