@@ -35,7 +35,8 @@ if [[ "$TOOL_NAME" == mcp__figma__* ]]; then
 
   FILE_KEY=$(echo "$INPUT" | jq -r '.tool_input.fileKey // .tool_input.file_key // empty')
   if [ -z "$FILE_KEY" ]; then
-    exit 0
+    echo "ブロック: ホワイトリストが有効ですが fileKey が指定されていません。" >&2
+    exit 2
   fi
 
   MATCH=$(jq -r --arg key "$FILE_KEY" '.allowed_figma_file_keys | map(select(. == $key)) | length' "$SCOPE_FILE")
@@ -54,7 +55,8 @@ if [ "$TOOL_NAME" = "mcp__google-workspace__list_drive_items" ]; then
 
   FOLDER_ID=$(echo "$INPUT" | jq -r '.tool_input.folder_id // .tool_input.folderId // empty')
   if [ -z "$FOLDER_ID" ]; then
-    exit 0
+    echo "ブロック: ホワイトリストが有効ですが folder_id が指定されていません。" >&2
+    exit 2
   fi
 
   MATCH=$(jq -r --arg id "$FOLDER_ID" '.allowed_drive_folder_ids | map(select(. == $id)) | length' "$SCOPE_FILE")

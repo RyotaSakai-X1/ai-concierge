@@ -168,7 +168,16 @@
   "hooks": {
     "PreToolUse": [
       {
-        "matcher": "mcp__figma__|mcp__google-workspace__",
+        "matcher": "mcp__figma__",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "\"$CLAUDE_PROJECT_DIR\"/.claude/hooks/validate-mcp-scope.sh"
+          }
+        ]
+      },
+      {
+        "matcher": "mcp__google-workspace__",
         "hooks": [
           {
             "type": "command",
