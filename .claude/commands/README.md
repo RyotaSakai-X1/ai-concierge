@@ -8,24 +8,24 @@ Claude Code のチャットで使える自動化コマンドの一覧です。
 
 ## 現在使えるコマンド
 
-| コマンド | 何ができる？ | 使い方の例 |
-|---------|------------|-----------|
-| `/work-on-issue` | イシュー番号→分析→実装→セルフレビュー→PR作成を一括実行 | `/work-on-issue 12` |
-| `/parallel-work` | 複数イシューを worktree 並列で同時実行 | `/parallel-work 12 14 16` |
-| `/creating-pr` | 変更からブランチ作成・コミット・プッシュ・PR作成を一括実行 | `/creating-pr ログイン機能を追加` |
-| `/reviewing` | 仕様書・成果物・PRをチェックリストに基づいてレビュー | `/reviewing docs/specs/2026-03-09-xxx.md` |
-| `/briefing` | PR状況・CI・worktree状態・レビュー依頼を報告 | `/briefing` |
-| `/estimating` | スプレッドシートの機能要件から工数を自動見積もり | `/estimating https://docs.google.com/spreadsheets/d/xxx/edit` |
-| `/create-estimate-doc` | 工数見積もりスプシから見積書を自動生成 | `/create-estimate-doc https://docs.google.com/spreadsheets/d/xxx/edit` |
-| `/generating-spec` | 仕様書から実装計画・技術設計を生成 | `/generating-spec docs/specs/2026-03-09-xxx.md` |
-| `/executing-plan` | タスクリストを順次自律実行 | `/executing-plan docs/outputs/xxx/tasks.md` |
-| `/define-requirements` | 案件概要から要件定義書を作成し Google Sheets に書き出し | `/define-requirements https://docs.google.com/document/d/xxx` |
-| `/extract-requirements` | ミーティング・ヒアリングデータから情報を構造化抽出 | `/extract-requirements https://drive.google.com/drive/folders/xxx` |
-| `/generate-screens` | 要件定義から画面一覧・画面遷移図・レイアウトを自動生成 | `/generate-screens docs/outputs/my-project/requirements.md` |
-| `/wireframe` | 要件・画面設計から FigJam に画面遷移図・フロー図を生成 | `/wireframe docs/outputs/my-project/screens/` |
-| `/create-issues-from-meeting` | 議事録・レポートのアクションアイテムからイシュー一括起票 | `/create-issues-from-meeting docs/outputs/my-project/meetings/2026-03-11-insights.md` |
-| `/checking-ready` | 指定イシューの着手可否を依存関係から判定 | `/checking-ready 12` |
-| `/sync-design-system` | Figma からデザイントークンを抽出し design-system.md との差分検出・同期 | `/sync-design-system https://www.figma.com/design/XXXXX/project` |
+| コマンド | 目的 | 使い方の例 |
+|---------|------|-----------|
+| `/work-on-issue` | イシュー実装〜PR作成 | `/work-on-issue 12` |
+| `/parallel-work` | 複数イシュー並列実行 | `/parallel-work 12 14 16` |
+| `/creating-pr` | ブランチ作成〜PR作成 | `/creating-pr ログイン機能を追加` |
+| `/reviewing` | 成果物・PRレビュー | `/reviewing docs/specs/2026-03-09-xxx.md` |
+| `/briefing` | 状況報告 | `/briefing` |
+| `/estimating` | 工数見積もり | `/estimating https://docs.google.com/spreadsheets/d/xxx/edit` |
+| `/create-estimate-doc` | 見積書生成 | `/create-estimate-doc https://docs.google.com/spreadsheets/d/xxx/edit` |
+| `/generating-spec` | 実装計画・技術設計生成 | `/generating-spec docs/specs/2026-03-09-xxx.md` |
+| `/executing-plan` | タスクリスト順次実行 | `/executing-plan docs/outputs/xxx/tasks.md` |
+| `/define-requirements` | 要件定義書作成 | `/define-requirements https://docs.google.com/document/d/xxx` |
+| `/extract-requirements` | ヒアリング情報抽出 | `/extract-requirements https://drive.google.com/drive/folders/xxx` |
+| `/generate-screens` | 画面一覧・遷移図生成 | `/generate-screens docs/outputs/my-project/requirements.md` |
+| `/wireframe` | ワイヤーフレーム生成 | `/wireframe docs/outputs/my-project/screens/` |
+| `/create-issues-from-meeting` | 議事録からイシュー起票 | `/create-issues-from-meeting docs/outputs/my-project/meetings/2026-03-11-insights.md` |
+| `/checking-ready` | イシュー着手可否判定 | `/checking-ready 12` |
+| `/sync-design-system` | デザインシステム同期 | `/sync-design-system https://www.figma.com/design/XXXXX/project` |
 
 ## コマンドを追加したい場合
 
