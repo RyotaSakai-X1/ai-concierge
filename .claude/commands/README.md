@@ -25,6 +25,7 @@ Claude Code のチャットで使える自動化コマンドの一覧です。
 | `/wireframe` | 要件・画面設計から FigJam に画面遷移図・フロー図を生成 | `/wireframe docs/outputs/my-project/screens/` |
 | `/create-issues-from-meeting` | 議事録・レポートのアクションアイテムからイシュー一括起票 | `/create-issues-from-meeting docs/outputs/my-project/meetings/2026-03-11-insights.md` |
 | `/checking-ready` | 指定イシューの着手可否を依存関係から判定 | `/checking-ready 12` |
+| `/sync-design-system` | Figma からデザイントークンを抽出し design-system.md との差分検出・同期 | `/sync-design-system https://www.figma.com/design/XXXXX/project` |
 
 ## コマンドを追加したい場合
 
