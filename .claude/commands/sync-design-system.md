@@ -1,131 +1,81 @@
 # /sync-design-system — Figma ↔ ローカル デザインシステム同期
 
-Figma ファイルからデザイントークンを抽出し、`knowledge/design-system.md` との差分を検出・レポートします。
-また、ローカルのデザインシステム定義を開発ルール文書として整備します。
+Figma ファイルのデザイントークンと `knowledge/design-system.md` を比較し、差分レポートとルール文書を生成する。
 
 ## 引数
 
 - `$ARGUMENTS` — Figma ファイル URL（例: `https://www.figma.com/design/XXXXX/project-name`）
-  - 省略した場合はローカル→ルール文書生成モードのみ実行
+  - 省略時は Step 4 のみ実行
 
-## 実行手順
+## 動作モード
 
-### Step 1: 引数の解析
+| 条件 | Step 1-3（Figma 同期） | Step 4（ルール文書生成） |
+|------|----------------------|------------------------|
+| URL あり | ✅ | ✅ |
+| URL なし | ⬚ スキップ | ✅ |
 
-1. `$ARGUMENTS` が提供されている場合:
-   - URL から fileKey を抽出する（`figma.com/design/{fileKey}/` または `figma.com/file/{fileKey}/` の形式）
-   - fileKey が取得できない場合は処理を中断しユーザーに正しい URL を求める
-2. `$ARGUMENTS` が省略されている場合:
-   - Step 4（ローカル→ルール文書生成）のみ実行する
+## Step 1: Figma トークン取得
 
-### Step 2: Figma ファイル構造の取得（Figma URL が提供された場合のみ）
+入力: `$ARGUMENTS` の Figma URL（fileKey は `figma.com/design/{fileKey}/` or `figma.com/file/{fileKey}/` から抽出）
 
-1. `get_metadata` で fileKey と `nodeId: "0:1"` を指定し、ページ・セクション・コンポーネントのノードツリーを取得する
-2. 取得したノードツリーから以下を把握する:
-   - ページ一覧と構成
-   - デザインシステム用と思われるページ（"Design System", "Tokens", "Colors" 等の名称を探す）
-   - 主要コンポーネントの nodeId 一覧
-3. デザインシステムページが見つかった場合はその nodeId を以降のステップで使用する。見つからない場合は `"0:1"` を使用する
+| 操作 | MCP ツール | 目的 |
+|------|-----------|------|
+| ノードツリー取得 | `get_metadata`（fileKey, nodeId: "0:1"） | デザインシステム用ページを特定 |
+| トークン取得 | `get_variable_defs`（fileKey, nodeId） | デザイントークン一覧を取得 |
 
-### Step 3: デザイントークンの抽出（Figma URL が提供された場合のみ）
+トークン分類:
 
-1. `get_variable_defs` で fileKey と nodeId を指定し、デザイントークンを取得する
-2. 取得したトークンを以下のカテゴリに分類する:
-   - **カラー**: `Color/` プレフィックスのトークン
-   - **タイポグラフィ**: `Typography/` プレフィックスのトークン
-   - **スペーシング**: `Spacing/` または `Space/` プレフィックスのトークン
-   - **その他**: 上記に該当しないトークン
+| カテゴリ | プレフィックス |
+|---------|--------------|
+| カラー | `Color/` |
+| タイポグラフィ | `Typography/` |
+| スペーシング | `Spacing/`, `Space/` |
+| その他 | 上記以外 |
 
-### Step 4: 差分検出とレポート生成（Figma URL が提供された場合のみ）
+## Step 2: 差分検出・レポート生成
 
-1. `knowledge/design-system.md` を読み込む
-2. Step 3 で抽出した Figma トークンと、`design-system.md` のトークン定義を比較する:
-   - Figma にあってローカルにない → **追加候補**
-   - ローカルにあって Figma にない → **未反映**（Figma への追加 or ローカルのみで管理）
-   - 両方にあって値が異なる → **不整合**
-3. 差分レポートを `docs/outputs/{project-slug}/design-system-sync-report-{YYYY-MM-DD}.md` に出力する
+比較対象: Figma トークン（Step 1）↔ `knowledge/design-system.md`
 
-差分レポートのフォーマット（`docs/outputs/{project-slug}/design-system-sync-report-{YYYY-MM-DD}.md`）:
+差分分類:
 
-**# デザインシステム同期レポート {YYYY-MM-DD}**
+| 状態 | 条件 |
+|------|------|
+| 追加候補 | Figma にあってローカルにない |
+| 未反映 | ローカルにあって Figma にない |
+| 不整合 | 両方にあり値が異なる |
 
-**## 同期元**
-- Figma ファイル: {URL}
-- 取得日時: {datetime}
+出力先: `docs/outputs/{project-slug}/design-system-sync-report-{YYYY-MM-DD}.md`
 
-**## サマリー**
-- 追加候補: X トークン
-- 未反映: X トークン
-- 不整合: X トークン
+レポート内容:
+- 同期元（Figma URL、取得日時）
+- サマリー（追加候補・未反映・不整合のトークン数）
+- 各カテゴリのトークン一覧テーブル（トークン名・値・カテゴリ or 備考）
 
-**## 追加候補（Figma にあってローカルにないトークン）**
+## Step 3: ローカル反映
 
-| トークン名 | 値 | カテゴリ |
-|-----------|-----|---------|
-| ...       | ... | ...     |
+レポート提示後、AskUserQuestion で反映可否を確認:
+- 追加候補トークンをローカルに反映するか
+- 不整合トークンを Figma 値で上書きするか
 
-**## 未反映（ローカルにあって Figma にないトークン）**
+承認された変更のみ `knowledge/design-system.md` に反映する。
 
-| トークン名 | ローカル値 | 備考 |
-|-----------|-----------|------|
-| ...       | ...       | ...  |
+## Step 4: ルール文書生成
 
-**## 不整合（値が異なるトークン）**
+入力: `knowledge/design-system.md`（現在の定義）
+テンプレート: `create_design_system_rules` の出力に従う
 
-| トークン名 | Figma 値 | ローカル値 |
-|-----------|---------|-----------|
-| ...       | ...     | ...       |
-
-4. レポートの内容をユーザーに提示し、以下を AskUserQuestion で確認する:
-   - 「追加候補トークンをローカルに反映しますか？」
-   - 「不整合トークンを Figma 値で上書きしますか？」
-
-### Step 5: ローカル更新（ユーザーが承認した場合のみ）
-
-ユーザーが承認した変更を `knowledge/design-system.md` に反映する:
-
-1. **追加候補の反映**: 承認されたトークンを該当カテゴリ（カラー/タイポグラフィ/スペーシング）のテーブルに追加する
-2. **不整合の修正**: 承認されたトークンの値を Figma 値に更新する
-3. 変更後の `design-system.md` を読み直し、反映内容をユーザーに確認する
-
-### Step 6: ローカル → ルール文書生成
-
-`create_design_system_rules` を呼び出し、プロンプトテンプレートを取得する。
-そのテンプレートに従って、`knowledge/design-system.md` の現在の定義を分析し、以下のルール文書を生成する:
+生成内容:
+- デザイントークン一覧と用途
+- コンポーネントのスタイリング方針（Tailwind クラス使用ルール等）
+- カラー・タイポグラフィ・スペーシングの制約
+- コンポーネント設計時の判断基準
 
 出力先: `docs/outputs/{project-slug}/design-system-rules-{YYYY-MM-DD}.md`
 
-生成内容:
-- プロジェクトで使用するデザイントークンの一覧と用途
-- コンポーネントのスタイリング方針（Tailwind クラスの使用ルール等）
-- カラー・タイポグラフィ・スペーシングの制約（デザイントークン外の値を使ってはいけない等）
-- コンポーネント設計時の判断基準
+> この文書は CLAUDE.md やコードレビューのチェックリストとして活用できる。
 
-> この文書は `CLAUDE.md` やコードレビューのチェックリストとして活用できる。
+## 制約
 
-### Step 7: 結果サマリーの報告
-
-以下をチャットに出力する:
-
-```
-## /sync-design-system 完了
-
-### Figma 同期（{URL がある場合}）
-- 追加: X トークン
-- 不整合修正: X トークン
-- レポート: docs/outputs/{slug}/design-system-sync-report-{date}.md
-
-### ルール文書生成
-- 出力: docs/outputs/{slug}/design-system-rules-{date}.md
-
-### 次のステップ
-- [ ] レポートを確認し、未反映トークンの対応方針を決める
-- [ ] ルール文書を CLAUDE.md または設計仕様書に組み込む
-```
-
-## 注意事項
-
-- Figma MCP は Figma 上の**デザイン直接編集**は不可能。ローカル→Figma の「書き込み」はできない
-- `get_variable_defs` はトークンが未設定のファイルでは空データを返す場合がある
+- Figma MCP はデザインの直接編集不可。ローカル→Figma の書き込みはできない
+- `get_variable_defs` はトークン未設定ファイルで空データを返す場合がある
 - project-slug が不明な場合は Figma ファイル名 or `design-system` を使用する
-- `create_design_system_rules` の出力はプロンプトテンプレートであり、AI 自身がそのテンプレートに従って分析を実行する
