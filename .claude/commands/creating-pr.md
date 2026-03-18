@@ -15,7 +15,7 @@
 | コンテキスト | 判定条件 | 動作 |
 |------------|---------|------|
 | 通常実行（main 上） | worktree でない かつ main ブランチ | Step 2 でブランチ作成 |
-| worktree 内実行 | worktree 検出 | ブランチ作成スキップ → Step 3 へ |
+| worktree 内実行 | `git rev-parse --git-dir` と `--git-common-dir` が異なる | ブランチ作成スキップ → Step 3 へ |
 | 既存ブランチ上 | worktree でない かつ main 以外 | 現ブランチで続行するか確認 |
 
 変更（staged / unstaged / untracked）がゼロの場合は終了する。

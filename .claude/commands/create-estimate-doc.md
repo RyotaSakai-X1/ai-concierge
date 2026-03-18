@@ -8,7 +8,7 @@
 
 ## Step 1: 工数データの取得
 
-入力: `$ARGUMENTS` からスプレッドシート ID を抽出
+入力: `$ARGUMENTS` からスプレッドシート ID を抽出（URL の場合は `/spreadsheets/d/{ID}/edit` の `{ID}` 部分）
 
 取得手順: `mcp__google-workspace__get_spreadsheet_info` → `mcp__google-workspace__read_sheet_values`
 
