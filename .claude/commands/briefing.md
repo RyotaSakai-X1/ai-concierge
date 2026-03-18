@@ -1,49 +1,57 @@
 # /briefing — エンジニアリングブリーフィング
 
-PR状況・CI・worktree 状態・レビュー依頼をまとめて報告します。
+PR 状況・CI・worktree 状態・レビュー依頼をまとめて報告する。
 
-## 手順
+## Step 1: PR 状況
 
-### 1. PR状況の確認
+入力: `gh pr list --assignee @me --json number,title,state,checks,reviewDecision,url`
 
-`gh pr list --assignee @me --json number,title,state,checks,reviewDecision,url` で自分がアサインされているオープンPRを確認する。
+各 PR の報告項目: 番号 / タイトル / レビュー状態（レビュー待ち / 変更要求あり） / CI 状態（passed / failed）
 
-以下の形式で報告:
+オープン PR がない場合は「オープン PR はありません」と報告。
 
-**オープンPR一覧** — 各PRについて番号、タイトル、レビュー状態（レビュー待ち / 変更要求あり）、CI状態（passed / failed）を表示する。オープンPRがない場合は「オープンPRはありません」と報告する。
+## Step 2: レビュー依頼
 
-### 2. レビュー依頼の確認
+入力: `gh pr list --search "review-requested:@me" --json number,title,url,author`
 
-`gh pr list --search "review-requested:@me" --json number,title,url,author` で自分にレビューが依頼されているPRを確認する。
+各 PR の報告項目: 番号 / タイトル / 作成者
 
-各PRについて番号、タイトル、作成者を表示する。レビュー依頼がない場合は「レビュー依頼はありません」と報告する。
+レビュー依頼がない場合は「レビュー依頼はありません」と報告。
 
-### 3. Worktree 状態の確認
+## Step 3: Worktree 状態
 
-`git worktree list` で作業中の worktree を確認する。
+入力: `git worktree list`
 
-追加の worktree がある場合はパスとブランチ名を表示する。メインのみの場合は「追加の worktree はありません」と報告する。
+追加の worktree がある場合はパスとブランチ名を表示。メインのみの場合は「追加の worktree はありません」と報告。
 
-### 4. イシュー状況の確認
+## Step 4: イシュー状況
 
-`gh issue list --assignee @me --json number,title,labels,updatedAt` でアサイン済み未完了イシューを確認する。
+入力: `gh issue list --assignee @me --json number,title,labels,updatedAt`
 
-各イシューについて番号、タイトル、ラベル、最終更新日を表示する。7日以上更新がないイシューには「⚠️ 放置気味」と付ける。
+各イシューの報告項目: 番号 / タイトル / ラベル / 最終更新日
 
-### 5. 直近のマージ状況
+7 日以上更新なしのイシューには「⚠️ 放置気味」を付与。
 
-`gh pr list --state merged --json number,title,mergedAt --limit 5` で直近24時間以内にマージされたPRを確認する。
+## Step 5: 直近のマージ状況
 
-### 6. 今日の作業提案
+入力: `gh pr list --state merged --json number,title,mergedAt --limit 5`
 
-上記の情報を踏まえ、優先順位付きで今日やるべきことを提案する:
+直近 24 時間以内にマージされた PR を報告。
 
-1. CI失敗の修正（最優先）
-2. レビュー対応（変更要求への対応）
-3. レビュー依頼への対応
-4. 未完了イシューの着手
+## Step 6: 今日の作業提案
 
-## 注意事項
+Step 1〜5 の情報を踏まえ、優先順位付きで提案する。
 
-- 各ステップでエラーが発生した場合（API未接続等）はスキップして次へ進む
+優先順:
+
+| 優先度 | 内容 |
+|--------|------|
+| 1 | CI 失敗の修正 |
+| 2 | レビュー対応（変更要求への対応） |
+| 3 | レビュー依頼への対応 |
+| 4 | 未完了イシューの着手 |
+
+## 制約
+
+- 各ステップでエラーが発生した場合（API 未接続等）はスキップして次へ進む
 - 情報が多い場合は重要度順に絞る
