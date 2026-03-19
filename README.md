@@ -14,13 +14,13 @@
 
 | 比喩 | 実体 |
 |---|---|
-| 経営者/発注者 | ユーザー（あなた） |
-| テックリード | Claude Code 本体 |
-| 開発部 | コーディング系コマンド（`/work-on-issue`, `/parallel-work` 等） |
-| 企画・分析部 | 要件定義・分析系コマンド（`/define-requirements`, `/extract-requirements` 等） |
-| デザイン部 | デザイン系コマンド（Figma 連携） |
-| スタッフ部門 | ルール・テンプレート・チェックリスト |
-| 動的チームメンバー | `/parallel-work` 実行時に Agent Teams で生成されるワーカー |
+| 👤 経営者/発注者 | ユーザー（あなた） |
+| 🧑‍💻 テックリード | Claude Code 本体 |
+| ⚙️ 開発部 | コーディング系コマンド（`/work-on-issue`, `/parallel-work` 等） |
+| 📋 企画・分析部 | 要件定義・分析系コマンド（`/define-requirements`, `/extract-requirements` 等） |
+| 🎨 デザイン部 | デザイン系コマンド（Figma 連携） |
+| 📚 スタッフ部門 | ルール・テンプレート・チェックリスト |
+| 👷 動的チームメンバー | `/parallel-work` 実行時に Agent Teams で生成されるワーカー |
 
 ### 組織構造
 
@@ -39,30 +39,33 @@ graph TD
             C2["/parallel-work"]
             C3["/creating-pr"]
             C4["/reviewing"]
+            C5["/checking-ready"]
         end
 
         subgraph Analysis["企画・分析部"]
-            A1["/extract-requirements"]
-            A2["/define-requirements"]
+            A1["/define-requirements"]
+            A2["/extract-requirements"]
             A3["/generate-screens"]
             A4["/wireframe"]
-        end
-
-        subgraph QA["品質保証部"]
-            Q1["/generate-test-cases"]
-            Q2["/run-ui-test"]
+            A5["/estimating"]
+            A6["/create-estimate-doc"]
+            A7["/create-issues-from-meeting"]
         end
 
         subgraph Design["デザイン部"]
-            D1["/design"]
-            D2["/design-review"]
+            D1["/sync-design-system"]
+        end
+
+        subgraph Planning["設計・計画部"]
+            P1["/generating-spec"]
+            P2["/executing-plan"]
         end
     end
 
     TL --> Coding
     TL --> Analysis
-    TL --> QA
     TL --> Design
+    TL --> Planning
 
     subgraph Support["スタッフ部門"]
         S1["ルール / テンプレート / チェックリスト / フック"]
@@ -73,42 +76,15 @@ graph TD
 
 ### 外部連携と成果物
 
-```mermaid
-graph LR
-    TL["テックリード"]
+| 連携先 | 方式 | 用途 |
+|--------|------|------|
+| GitHub | 直接読み書き | PR・イシュー管理 |
+| Google Calendar | MCP | 予定取得・ブリーフィング |
+| Gmail | MCP | メール連携 |
+| Figma | MCP | デザインデータ読み取り |
+| Google Workspace | MCP | Docs・Sheets・Drive 連携 |
 
-    subgraph External["外部連携"]
-        GH["GitHub"]
-        GCal["Google Calendar"]
-        Gmail["Gmail"]
-        Figma["Figma"]
-        GDocs["Google Workspace"]
-    end
-
-    TL -->|読み書き| GH
-    TL -.->|MCP| GCal
-    TL -.->|MCP| Gmail
-    TL -.->|MCP| Figma
-    TL -.->|MCP| GDocs
-
-    subgraph Outputs["成果物倉庫 docs/outputs/"]
-        O1["requirements.md"]
-        O2["screens/"]
-        O3["wireframes/"]
-        O4["estimate-doc.md"]
-        O5["meetings/"]
-    end
-
-    TL -->|生成| Outputs
-
-    subgraph Temp["動的チームメンバー（並列実行時のみ）"]
-        M1["メンバー #1 / worktree A"]
-        M2["メンバー #2 / worktree B"]
-        M3["メンバー #N / worktree N"]
-    end
-
-    TL -->|"/parallel-work で生成"| Temp
-```
+成果物は `docs/outputs/` 配下に案件ごとのフォルダで集約されます。
 
 ## フォルダ構成
 
