@@ -6,14 +6,7 @@
 
 ## 設計思想
 
-プロジェクト知識を **Why / Map / Rules / Workflows** の4象限で整理しています。
-
-| 役割 | 何を伝えるか | 対応ファイル |
-|------|------------|-------------|
-| **Why** | このシステムは何をするのか | `CLAUDE.md`, `knowledge/mission.md` |
-| **Map** | どこに何があるのか | `knowledge/`, `docs/` |
-| **Rules** | 何をしていい/ダメなのか | `.claude/rules/`, `.claude/hooks/` |
-| **Workflows** | どうやって作業を進めるのか | `.claude/commands/` |
+プロジェクト知識を **Why**（`CLAUDE.md`, `knowledge/`）・**Map**（`docs/`）・**Rules**（`.claude/rules/`, `.claude/hooks/`）・**Workflows**（`.claude/commands/`）の4象限で整理し、AI が自律的に判断・行動できる構造にしています。
 
 ## アーキテクチャ
 
