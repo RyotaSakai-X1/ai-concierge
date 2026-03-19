@@ -1,4 +1,8 @@
 {
+  "env": {
+    "CLAUDE_CODE_EXPERIMENTAL_AGENT_TEAMS": "1"
+  },
+  "teammateMode": "tmux",
   "allow": [
     "Bash(gh auth status 2>&1)",
     "Bash(gh issue:*)",
