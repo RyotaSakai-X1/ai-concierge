@@ -27,6 +27,13 @@
 | イシュー番号が未指定 | 処理中断。「イシュー番号を指定してください（例: `/work-on-issue 12`）」と表示 |
 | イシュー取得失敗（API エラー・番号不正） | 処理中断。エラー内容を表示 |
 
+イシュー取得成功時の即時処理:
+
+| アクション | コマンド |
+|-----------|---------|
+| イシューアサイン | `gh issue edit $ARGUMENTS --add-assignee @me` |
+| ステータス変更 | `.claude/rules/git-workflow.md` の手順で **In progress** に変更 |
+
 抽出項目:
 
 | 項目 | 抽出アクション |
@@ -47,8 +54,6 @@
 | アクション | コマンド |
 |-----------|---------|
 | ブランチ作成 | `git checkout -b feature/YYYY-MM-DD-{slug}` |
-| イシューアサイン | `gh issue edit $ARGUMENTS --add-assignee @me` |
-| ステータス変更 | `.claude/rules/git-workflow.md` の手順で **In progress** に変更 |
 
 ## Step 3: 実装
 
