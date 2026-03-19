@@ -16,13 +16,13 @@
 |---|---|
 | 👤 経営者/発注者 | ユーザー（あなた） |
 | 🧑‍💻 テックリード | Claude Code 本体 |
-| ⚙️ 開発部 | コーディング系コマンド（`/work-on-issue`, `/parallel-work` 等） |
-| 📋 企画・分析部 | 要件定義・分析系コマンド（`/define-requirements`, `/extract-requirements` 等） |
-| 🎨 デザイン部 | デザイン系コマンド（Figma 連携） |
-| 📚 スタッフ部門 | ルール・テンプレート・チェックリスト |
+| ⚙️ 開発エージェント | コーディング系コマンド（`/work-on-issue`, `/parallel-work` 等） |
+| 📋 企画・分析エージェント | 要件定義・分析系コマンド（`/define-requirements`, `/extract-requirements` 等） |
+| 🎨 デザインエージェント | デザイン系コマンド（Figma 連携） |
+| 📚 スタッフエージェント | ルール・テンプレート・チェックリスト |
 | 👷 動的チームメンバー | `/parallel-work` 実行時に Agent Teams で生成されるワーカー |
 
-### 組織構造
+### エージェント組織図
 
 ```mermaid
 graph TD
@@ -31,10 +31,10 @@ graph TD
 
     User -->|指示・承認| TL
 
-    subgraph "4つの事業部"
+    subgraph "4つの専門エージェント"
         direction LR
 
-        subgraph Coding["開発部"]
+        subgraph Coding["開発エージェント"]
             C1["/work-on-issue"]
             C2["/parallel-work"]
             C3["/creating-pr"]
@@ -42,7 +42,7 @@ graph TD
             C5["/checking-ready"]
         end
 
-        subgraph Analysis["企画・分析部"]
+        subgraph Analysis["企画・分析エージェント"]
             A1["/define-requirements"]
             A2["/extract-requirements"]
             A3["/generate-screens"]
@@ -52,11 +52,11 @@ graph TD
             A7["/create-issues-from-meeting"]
         end
 
-        subgraph Design["デザイン部"]
+        subgraph Design["デザインエージェント"]
             D1["/sync-design-system"]
         end
 
-        subgraph Planning["設計・計画部"]
+        subgraph Planning["設計・計画エージェント"]
             P1["/generating-spec"]
             P2["/executing-plan"]
         end
@@ -67,7 +67,7 @@ graph TD
     TL --> Design
     TL --> Planning
 
-    subgraph Support["スタッフ部門"]
+    subgraph Support["スタッフエージェント"]
         S1["ルール / テンプレート / チェックリスト / フック"]
     end
 
