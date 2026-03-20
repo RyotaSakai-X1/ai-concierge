@@ -31,7 +31,7 @@ echo ""
 # ============================================================
 # 1. Homebrew
 # ============================================================
-step "1/4: Homebrew の確認"
+step "1/5: Homebrew の確認"
 
 if command -v brew &>/dev/null; then
   info "Homebrew はインストール済みです"
@@ -61,7 +61,7 @@ fi
 # ============================================================
 # 2. uv (uvx)
 # ============================================================
-step "2/4: uv の確認"
+step "2/5: uv の確認"
 
 if command -v uvx &>/dev/null; then
   info "uv はインストール済みです ($(uv --version))"
@@ -79,7 +79,7 @@ fi
 # ============================================================
 # 3. .env ファイル
 # ============================================================
-step "3/4: .env ファイルの作成"
+step "3/5: .env ファイルの作成"
 
 if [[ -f .env ]]; then
   info ".env はすでに存在します"
@@ -88,7 +88,7 @@ else
   info ".env.sample をコピーして .env を作成しました"
 fi
 
-# --- 必須項目のチェックと入力 ---
+# --- 環境変数のチェックと入力 ---
 needs_input=false
 
 check_env_var() {
@@ -118,10 +118,25 @@ check_env_var() {
   fi
 }
 
+# ============================================================
+# 4. 認証情報の設定
+# ============================================================
+step "4/5: 認証情報の設定"
+
 echo ""
-echo "Google Workspace 連携に必要な情報を入力します。"
-echo "わからない場合は Enter でスキップできます（後で設定可能）。"
+echo "各サービスの認証情報を入力します。"
+echo "わからない場合は Enter でスキップできます（後で .env を直接編集しても OK）。"
+
+# --- GitHub ---
 echo ""
+echo -e "${BOLD}[GitHub]${NC}"
+
+check_env_var "GITHUB_PERSONAL_ACCESS_TOKEN" \
+  "GITHUB_PERSONAL_ACCESS_TOKEN を入力してください（GitHub > Settings > Developer settings > Personal access tokens で発行）:"
+
+# --- Google Workspace ---
+echo ""
+echo -e "${BOLD}[Google Workspace]${NC}"
 echo "※ GOOGLE_OAUTH_CLIENT_ID と CLIENT_SECRET は管理者から共有されたものを貼り付けてください。"
 
 check_env_var "GOOGLE_OAUTH_CLIENT_ID" \
@@ -133,10 +148,46 @@ check_env_var "GOOGLE_OAUTH_CLIENT_SECRET" \
 check_env_var "USER_GOOGLE_EMAIL" \
   "あなたの Google メールアドレスを入力してください（例: taro@x-point-1.net）:"
 
+# --- Figma ---
+echo ""
+echo -e "${BOLD}[Figma]${NC}"
+
+check_env_var "FIGMA_API_KEY" \
+  "FIGMA_API_KEY を入力してください（Figma > Settings > Personal access tokens で発行）:"
+
 # ============================================================
-# 4. 完了
+# 5. アクセス制御・出力先の設定（省略可）
 # ============================================================
-step "4/4: セットアップ完了"
+step "5/5: アクセス制御・出力先の設定（省略可）"
+
+echo ""
+echo "出力先やアクセス制御の設定です。"
+echo "省略可。後から .env を直接編集しても OK です。"
+
+# --- Figma ---
+echo ""
+echo -e "${BOLD}[Figma アクセス制御・出力先]${NC}"
+
+check_env_var "FIGMA_ALLOWED_FILE_KEYS" \
+  "FIGMA_ALLOWED_FILE_KEYS を入力してください（アクセスを許可する Figma ファイルキーをカンマ区切りで。空欄=制限なし）:"
+
+check_env_var "FIGMA_DEFAULT_PLAN_KEY" \
+  "FIGMA_DEFAULT_PLAN_KEY を入力してください（Figma のデフォルト出力先プランキー。取得方法は README 参照）:"
+
+# --- Google Drive ---
+echo ""
+echo -e "${BOLD}[Google Drive 出力先]${NC}"
+
+check_env_var "MEET_RECORDING_FOLDER_ID" \
+  "MEET_RECORDING_FOLDER_ID を入力してください（Meet 録画が保存される Google Drive フォルダの ID。URL の folders/ の後の文字列）:"
+
+check_env_var "GDRIVE_DEFAULT_OUTPUT_FOLDER_ID" \
+  "GDRIVE_DEFAULT_OUTPUT_FOLDER_ID を入力してください（成果物のデフォルト出力先フォルダ ID。URL の folders/ の後の文字列）:"
+
+# ============================================================
+# 完了
+# ============================================================
+step "セットアップ完了"
 
 echo ""
 if [[ "$needs_input" = true ]]; then
