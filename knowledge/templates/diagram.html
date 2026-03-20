@@ -65,6 +65,7 @@
     mermaid.initialize({
       startOnLoad: true,
       theme: 'default',
+      // htmlLabels を有効にするため loose を使用（localhost 一時配信のみで使用）
       securityLevel: 'loose',
       flowchart: { useMaxWidth: true, htmlLabels: true },
       sequence: { useMaxWidth: true },

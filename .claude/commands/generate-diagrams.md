@@ -76,7 +76,7 @@ AskUserQuestion で確認する。
 
 ### 4-4. Figma にキャプチャ
 
-`mcp__figma__generate_figma_design` を使用し、各図の HTML を Figma にキャプチャする。
+`generate_figma_design` を使用し、各図の HTML を Figma にキャプチャする。
 
 - URL: `http://localhost:3457/{図の種類}.html`
 - 「全て生成」の場合は図の種類ごとに順にキャプチャする
