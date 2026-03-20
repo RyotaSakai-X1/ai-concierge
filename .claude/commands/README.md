@@ -37,6 +37,21 @@ Claude Code のチャットで使える自動化コマンドの一覧です。
 
 `/run-pipeline` を使うと、この一連の流れを対話的に実行できます。
 
+## 操作フロー図
+
+各コマンドの内部フロー・ユーザー選択分岐・出力先を俯瞰できる Mermaid ダイアグラムを用意しています。
+
+👉 [ユーザー操作フロー図（docs/outputs/system-flowchart/user-flow.md）](../../docs/outputs/system-flowchart/user-flow.md)
+
+| ダイアグラム | 内容 |
+|---|---|
+| A. システム全体俯瞰 | エントリーポイント → 4 レーン → 出力先 |
+| B. パイプラインフロー | `/run-pipeline` の全ステップ遷移と分岐 |
+| C. 個別分析コマンド詳細 | `/extract-requirements` 〜 `/create-estimate-doc` の内部フロー |
+| D. コーディングレーン | `/work-on-issue`, `/parallel-work`, `/creating-pr` |
+| E. レビュー・品質レーン | `/reviewing`, `/checking-ready` |
+| F. 横断機能レーン | `/briefing`, `/generating-spec`, `/executing-plan` 他 |
+
 ## コマンドを追加したい場合
 
 「こういう自動化がほしい」と Claude に伝えてください。
