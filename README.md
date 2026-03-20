@@ -241,7 +241,7 @@ PR 作成やイシュー管理に使用します。
 
 ### Figma
 
-デザインデータの読み取りに使用します。
+デザインデータの読み書き（ワイヤーフレーム生成、ダイアグラム出力、デザイン読み取り等）に使用します。
 
 1. Figma → 左上のアイコン → Settings → Security → Personal access tokens
 2. 「Generate new token」でトークンを生成
@@ -250,13 +250,16 @@ PR 作成やイシュー管理に使用します。
    FIGMA_API_KEY=生成したトークン
    ```
 
-### アクセス制御（ホワイトリスト）
+### アクセス制御とデフォルト出力先
 
-Figma ファイルと Google Drive フォルダへのアクセスは **許可制（fail-closed）** です。`.env` に設定されたリソースのみアクセスできます。
+Figma ファイルと Google Drive フォルダへのアクセスは **許可制（fail-closed）** です。`.env` に許可されたリソースのみアクセスできます。
 
-#### `FIGMA_ALLOWED_FILE_KEYS`
+#### Figma
 
-アクセスを許可する Figma ファイルの fileKey をカンマ区切りで設定します。
+| 変数 | 必須 | 用途 |
+|------|------|------|
+| `FIGMA_ALLOWED_FILE_KEYS` | 既存ファイルにアクセスする場合 | アクセスを許可する fileKey（カンマ区切り） |
+| `FIGMA_DEFAULT_PLAN_KEY` | 省略可 | 新規ファイルの配置先。未設定 = Drafts に作成 |
 
 **fileKey の取得方法:**
 
@@ -267,40 +270,42 @@ https://www.figma.com/design/aBcDeFgHiJ/ファイル名
                               これが fileKey
 ```
 
-`.env` に設定：
 ```
 FIGMA_ALLOWED_FILE_KEYS=aBcDeFgHiJ,kLmNoPqRsT
 ```
 
-> `/wireframe` や `/generate-diagrams` で新規作成したファイルの fileKey は自動で追加されます。既存ファイルを読み取りたい場合のみ手動追加が必要です。
+> `/wireframe` や `/generate-diagrams` で新規作成したファイルの fileKey は `.env` に自動で追加されます。既存ファイルにアクセスしたい場合のみ手動追加が必要です。
 
-#### `FIGMA_DEFAULT_PLAN_KEY`（省略可）
-
-Figma で新規ファイルを作成する際の配置先です。未設定の場合は Drafts に作成されます。
-
-**取得手順:**
+**planKey の取得方法:**
 
 1. Claude Code で `mcp__figma__whoami` を実行し、所属チーム情報を確認
 2. `/wireframe` などを一度実行し、`generate_figma_design` が返す **プラン一覧** から配置先の `planKey` を確認
-3. `.env` に設定：
-   ```
-   FIGMA_DEFAULT_PLAN_KEY=取得したplanKey
-   ```
 
-#### `GDRIVE_DEFAULT_OUTPUT_FOLDER_ID`（省略可）
+```
+FIGMA_DEFAULT_PLAN_KEY=取得したplanKey
+```
 
-Google Drive でスプレッドシートなどを作成する際の出力先フォルダです。未設定の場合はマイドライブ直下に作成されます。ここに設定したフォルダはアクセスが自動的に許可されます。
+#### Google Drive
 
-**取得手順:**
+| 変数 | 必須 | 用途 |
+|------|------|------|
+| `GDRIVE_DEFAULT_OUTPUT_FOLDER_ID` | 省略可 | 成果物の出力先フォルダ。未設定 = マイドライブ直下 |
+| `MEET_RECORDING_FOLDER_ID` | 省略可 | MTG 録音フォルダ |
 
-1. Google Drive で出力先にしたいフォルダを開く
-2. URL の末尾がフォルダ ID（例: `drive.google.com/drive/folders/1aBcDeFgHiJkLmN`）
-3. `.env` に設定：
-   ```
-   GDRIVE_DEFAULT_OUTPUT_FOLDER_ID=1aBcDeFgHiJkLmN
-   ```
+設定したフォルダは自動的にアクセスが許可されます。それ以外のフォルダにアクセスしたい場合は `.claude/security/mcp-scope.json` の `allowed_drive_folder_ids` に追加してください。
 
-> `MEET_RECORDING_FOLDER_ID` に設定したフォルダも自動的にアクセスが許可されます。それ以外のフォルダにアクセスしたい場合は `.claude/security/mcp-scope.json` の `allowed_drive_folder_ids` に追加してください。
+**フォルダ ID の取得方法:**
+
+Google Drive でフォルダを開き、URL の末尾がフォルダ ID です:
+```
+https://drive.google.com/drive/folders/1aBcDeFgHiJkLmN
+                                       ^^^^^^^^^^^^^^^
+                                       これがフォルダ ID
+```
+
+```
+GDRIVE_DEFAULT_OUTPUT_FOLDER_ID=1aBcDeFgHiJkLmN
+```
 
 </details>
 
