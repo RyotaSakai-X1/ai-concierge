@@ -37,36 +37,36 @@ graph TD
 
     subgraph LANE_A ["分析・設計レーン"]
         direction TB
-        CMD_PIPELINE[["/run-pipeline"]]:::command
-        CMD_EXTRACT[["/extract-requirements"]]:::command
-        CMD_DEFINE[["/define-requirements"]]:::command
-        CMD_SCREENS[["/generate-screens"]]:::command
-        CMD_DIAGRAMS[["/generate-diagrams"]]:::command
-        CMD_WIREFRAME[["/wireframe"]]:::command
-        CMD_DESIGN[["/design"]]:::command
-        CMD_ESTIMATING[["/estimating"]]:::command
-        CMD_ESTIMATE_DOC[["/create-estimate-doc"]]:::command
+        CMD_PIPELINE[["🔄 /run-pipeline\n対話的にパイプライン全体を実行"]]:::command
+        CMD_EXTRACT[["📋 /extract-requirements\nMTG・ヒアリングから情報を構造化抽出"]]:::command
+        CMD_DEFINE[["📝 /define-requirements\n案件概要から要件定義書を作成"]]:::command
+        CMD_SCREENS[["🖥️ /generate-screens\n画面一覧・画面遷移図を自動生成"]]:::command
+        CMD_DIAGRAMS[["📊 /generate-diagrams\n要件からダイアグラムを Figma に生成"]]:::command
+        CMD_WIREFRAME[["🔲 /wireframe\nワイヤーフレームを Figma に生成"]]:::command
+        CMD_DESIGN[["🎨 /design\nビジュアルデザインを Figma に生成"]]:::command
+        CMD_ESTIMATING[["🔢 /estimating\n機能要件から工数を自動算出"]]:::command
+        CMD_ESTIMATE_DOC[["💰 /create-estimate-doc\n工数見積から見積書を生成"]]:::command
     end
 
     subgraph LANE_B ["コーディングレーン"]
         direction TB
-        CMD_WORK[["/work-on-issue"]]:::command
-        CMD_PARALLEL[["/parallel-work"]]:::command
-        CMD_PR[["/creating-pr"]]:::command
+        CMD_WORK[["🔨 /work-on-issue\nイシュー起点で実装〜PR 作成"]]:::command
+        CMD_PARALLEL[["⚡ /parallel-work\n複数イシューを同時並列で実装"]]:::command
+        CMD_PR[["🚀 /creating-pr\n変更からブランチ作成〜PR 作成"]]:::command
     end
 
     subgraph LANE_C ["レビュー・品質レーン"]
         direction TB
-        CMD_REVIEW[["/reviewing"]]:::command
-        CMD_READY[["/checking-ready"]]:::command
+        CMD_REVIEW[["🔍 /reviewing\n仕様書・成果物・PR をレビュー"]]:::command
+        CMD_READY[["✅ /checking-ready\nイシューの着手可否を依存関係から判定"]]:::command
     end
 
     subgraph LANE_D ["横断機能レーン"]
         direction TB
-        CMD_SPEC[["/generating-spec"]]:::command
-        CMD_EXEC[["/executing-plan"]]:::command
-        CMD_ISSUES[["/create-issues-from-meeting"]]:::command
-        CMD_SYNC[["/sync-design-system"]]:::command
+        CMD_SPEC[["📐 /generating-spec\n仕様書から実装計画・技術設計を生成"]]:::command
+        CMD_EXEC[["▶️ /executing-plan\nタスクリストを順次自律実行"]]:::command
+        CMD_ISSUES[["🎫 /create-issues-from-meeting\n議事録からイシューを一括起票"]]:::command
+        CMD_SYNC[["🔗 /sync-design-system\nFigma ↔ ローカルのトークンを同期"]]:::command
     end
 
     CHOICE --> LANE_A
@@ -113,7 +113,7 @@ graph TD
     S1 --> S1_B
     S1 --> S1_C
 
-    EXTRACT[["/extract-requirements 実行"]]:::command
+    EXTRACT[["📋 MTG・ヒアリングから情報を構造化抽出"]]:::command
     S1_A --> EXTRACT
     S1_B --> EXTRACT
     S1_C --> EXTRACT
@@ -124,8 +124,8 @@ graph TD
     S2{"Step 2: 次のアクション"}:::userChoice
     OUT_EXTRACT --> S2
     S2_A["両方実行する（要件定義 + イシュー起票）"]:::autoStep
-    S2_B[["/define-requirements"]]:::command
-    S2_C[["/create-issues-from-meeting"]]:::command
+    S2_B[["📝 要件定義書を作成"]]:::command
+    S2_C[["🎫 議事録からイシューを起票"]]:::command
     S2_END["ここで終了"]:::autoStep
 
     S2 -->|"両方実行する（要件定義 + イシュー起票）"| S2_A
@@ -141,8 +141,8 @@ graph TD
 
     S3{"Step 3: 次のアクション"}:::userChoice
     OUT_DEFINE --> S3
-    S3_A[["/generate-screens"]]:::command
-    S3_B[["/estimating → /create-estimate-doc"]]:::command
+    S3_A[["🖥️ 画面一覧・遷移図を生成"]]:::command
+    S3_B[["💰 工数算出 → 見積書生成"]]:::command
     S3_BOTH["両方（画面設計 → 見積の順）"]:::autoStep
 
     S3 -->|"画面設計に進む（/generate-screens）"| S3_A
@@ -155,8 +155,8 @@ graph TD
 
     S4{"Step 4: 次のアクション"}:::userChoice
     OUT_SCREENS --> S4
-    S4_A[["/generate-diagrams"]]:::command
-    S4_B[["/wireframe"]]:::command
+    S4_A[["📊 ダイアグラムを Figma に生成"]]:::command
+    S4_B[["🔲 ワイヤーフレームを Figma に生成"]]:::command
     S4_BOTH["両方（ダイアグラム → ワイヤーフレーム）"]:::autoStep
 
     S4 -->|"ダイアグラムを Figma に生成（/generate-diagrams）"| S4_A
@@ -186,7 +186,7 @@ graph TD
     S7{"Step 7: 次のアクション"}:::userChoice
     OUT_EST --> S7
 
-    REVIEW_CMD[["/reviewing"]]:::command
+    REVIEW_CMD[["🔍 成果物をレビュー"]]:::command
     S7 -->|"レビューする"| REVIEW_CMD
     S7 -->|"完了"| DONE
 
@@ -462,7 +462,7 @@ graph TD
         WOI_STATUS["ステータス → In progress"]:::autoStep
         WOI_BRANCH["ブランチ作成 feature/YYYY-MM-DD-slug"]:::autoStep
         WOI_IMPL["チェックリスト順に実装"]:::autoStep
-        WOI_REVIEW[["/reviewing セルフレビュー"]]:::command
+        WOI_REVIEW[["🔍 セルフレビュー実行"]]:::command
 
         WOI_IN --> WOI_FETCH --> WOI_STATUS --> WOI_BRANCH --> WOI_IMPL --> WOI_REVIEW
 
