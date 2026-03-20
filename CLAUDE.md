@@ -95,6 +95,7 @@ rules ファイルは YAML frontmatter で適用条件を制御できる:
 | `requirements-extracted.md` | `/extract-requirements`（要件定義書の場合） |
 | `screens/` | `/generate-screens` |
 | `wireframes/` | `/wireframe` |
+| `diagrams/` | `/generate-diagrams` |
 | `estimate-doc.md` | `/create-estimate-doc` |
 | `meetings/` | `/extract-requirements`（MTGレポートの場合） |
 
