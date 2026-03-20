@@ -148,6 +148,24 @@ bash scripts/setup.sh
 
 > セットアップスクリプトの詳細 → [`scripts/setup.sh`](scripts/setup.sh)
 
+## `.env` の設定一覧
+
+`bash scripts/setup.sh` で対話的に設定できます。手動で設定する場合は `.env.sample` をコピーして `.env` を作成してください。
+
+| 変数 | 必須 | 用途 | 取得方法 |
+|------|------|------|---------|
+| `GITHUB_PERSONAL_ACCESS_TOKEN` | 必須 | PR・イシュー管理 | [GitHub](#github) |
+| `FIGMA_API_KEY` | 必須 | Figma 連携の認証 | [Figma](#figma) |
+| `GOOGLE_OAUTH_CLIENT_ID` | 必須 | Google Workspace 連携の認証 | [Google Workspace](#google-workspace-mcpgmail--drive--docs--sheets--calendar-等) |
+| `GOOGLE_OAUTH_CLIENT_SECRET` | 必須 | 同上 | 同上 |
+| `USER_GOOGLE_EMAIL` | 必須 | Google API の認証ユーザー | 自分の Google メールアドレス |
+| `FIGMA_ALLOWED_FILE_KEYS` | 任意 | アクセスを許可する Figma ファイル（カンマ区切り） | [Figma アクセス制御](#アクセス制御-1) |
+| `FIGMA_DEFAULT_PLAN_KEY` | 任意 | 新規 Figma ファイルの配置先 | [Figma デフォルト出力先](#デフォルト出力先) |
+| `MEET_RECORDING_FOLDER_ID` | 任意 | MTG 録音の Google Drive フォルダ | [Google Drive アクセス制御](#アクセス制御-2) |
+| `GDRIVE_DEFAULT_OUTPUT_FOLDER_ID` | 任意 | 成果物の Google Drive 出力先フォルダ | [Google Drive デフォルト出力先](#デフォルト出力先-1) |
+
+> Figma と Google Drive へのアクセスは**許可制（fail-closed）**です。許可されたリソースのみアクセスできます。詳細は各サービスのセクションを参照してください。
+
 ## 外部サービスの設定
 
 <details>
@@ -206,6 +224,25 @@ bash scripts/setup.sh
 
 > 「このサイトにアクセスできません」と表示されても**認証は成功しています**。Claude Code に戻って同じコマンドをもう一度実行してください。
 
+#### アクセス制御
+
+Google Drive フォルダへのアクセスは許可制です。`.env` に設定したフォルダ ID のみアクセスできます。
+
+`MEET_RECORDING_FOLDER_ID` と `GDRIVE_DEFAULT_OUTPUT_FOLDER_ID` に設定したフォルダは自動的に許可されます。それ以外のフォルダにアクセスしたい場合は `.claude/security/mcp-scope.json` の `allowed_drive_folder_ids` に追加してください。
+
+**フォルダ ID の取得方法:**
+
+Google Drive でフォルダを開き、URL の末尾がフォルダ ID です:
+```
+https://drive.google.com/drive/folders/1aBcDeFgHiJkLmN
+                                       ^^^^^^^^^^^^^^^
+                                       これがフォルダ ID
+```
+
+#### デフォルト出力先
+
+`GDRIVE_DEFAULT_OUTPUT_FOLDER_ID` を設定すると、`/define-requirements` 等でスプレッドシートを作成した際に自動的にそのフォルダに配置されます。未設定の場合はマイドライブ直下に作成されます。
+
 #### よくあるトラブル
 
 | 症状 | 原因と対処 |
@@ -241,7 +278,7 @@ PR 作成やイシュー管理に使用します。
 
 ### Figma
 
-デザインデータの読み取りに使用します。
+デザインデータの読み書き（ワイヤーフレーム生成、ダイアグラム出力、デザイン読み取り等）に使用します。
 
 1. Figma → 左上のアイコン → Settings → Security → Personal access tokens
 2. 「Generate new token」でトークンを生成
@@ -249,6 +286,38 @@ PR 作成やイシュー管理に使用します。
    ```
    FIGMA_API_KEY=生成したトークン
    ```
+
+#### アクセス制御
+
+既存の Figma ファイルへのアクセスは許可制です。`FIGMA_ALLOWED_FILE_KEYS` に fileKey をカンマ区切りで設定したファイルのみアクセスできます。
+
+**fileKey の取得方法:**
+
+Figma ファイルの URL から取得できます:
+```
+https://www.figma.com/design/aBcDeFgHiJ/ファイル名
+                              ^^^^^^^^^^
+                              これが fileKey
+```
+
+```
+FIGMA_ALLOWED_FILE_KEYS=aBcDeFgHiJ,kLmNoPqRsT
+```
+
+> `/wireframe` や `/generate-diagrams` で新規作成したファイルの fileKey は `.env` に自動で追加されます。既存ファイルにアクセスしたい場合のみ手動追加が必要です。
+
+#### デフォルト出力先
+
+`FIGMA_DEFAULT_PLAN_KEY` を設定すると、新規ファイル作成時に指定のチーム/プロジェクトに配置されます。未設定の場合は Drafts に作成されます。
+
+**planKey の取得方法:**
+
+1. Claude Code で `mcp__figma__whoami` を実行し、所属チーム情報を確認
+2. `/wireframe` などを一度実行し、`generate_figma_design` が返す **プラン一覧** から配置先の `planKey` を確認
+
+```
+FIGMA_DEFAULT_PLAN_KEY=取得したplanKey
+```
 
 </details>
 

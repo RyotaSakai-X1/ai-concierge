@@ -54,14 +54,16 @@ npx serve /tmp/wireframes-{slug}/ -l 3456 &
 
 ### 3-2: Figma 出力先の選択
 
-AskUserQuestion で出力先を選択:
-- `新しい Figma ファイルを作成`
-- `既存の Figma ファイルに追加`（fileKey を入力）
+`destination-defaults.md` の Figma 出力先判定フローに従う。
+
+- `FIGMA_DEFAULT_PLAN_KEY` 設定済み → 選択肢: `デフォルトのチーム/プロジェクトに作成` / `Drafts に作成` / `既存の Figma ファイルに追加（URL を入力）`
+- `FIGMA_DEFAULT_PLAN_KEY` 未設定 → 選択肢: `新しい Figma ファイルを作成` / `既存の Figma ファイルに追加（URL を入力）`
 
 ### 3-3: Figma キャプチャの実行
 
 `generate_figma_design` を呼び出し、`http://localhost:3456/index.html` をキャプチャする。
 
+- `newFile` の場合: `planKey` に `FIGMA_DEFAULT_PLAN_KEY` の値を渡す（未設定なら `planKey` 省略 = Drafts に作成）
 - 各画面を個別にキャプチャする場合は、画面ごとの URL（`http://localhost:3456/{nn}-{slug}.html`）を使用
 - AskUserQuestion で確認: `全画面を1ページにまとめてキャプチャ` / `画面ごとに個別キャプチャ`
 

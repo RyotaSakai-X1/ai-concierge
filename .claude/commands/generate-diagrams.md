@@ -70,14 +70,16 @@ npx serve /tmp/diagrams-{slug}/ -l 3457 &
 
 ### 4-3. Figma 出力先の選択
 
-AskUserQuestion で確認する。
+`destination-defaults.md` の Figma 出力先判定フローに従う。
 
-選択肢: `新規 Figma ファイルに出力` / `既存 Figma ファイルに追加（URL を入力）`
+- `FIGMA_DEFAULT_PLAN_KEY` 設定済み → 選択肢: `デフォルトのチーム/プロジェクトに作成` / `Drafts に作成` / `既存の Figma ファイルに追加（URL を入力）`
+- `FIGMA_DEFAULT_PLAN_KEY` 未設定 → 選択肢: `新規 Figma ファイルに出力` / `既存 Figma ファイルに追加（URL を入力）`
 
 ### 4-4. Figma にキャプチャ
 
 `generate_figma_design` を使用し、各図の HTML を Figma にキャプチャする。
 
+- `newFile` の場合: `planKey` に `FIGMA_DEFAULT_PLAN_KEY` の値を渡す（未設定なら `planKey` 省略 = Drafts に作成）
 - URL: `http://localhost:3457/{図の種類}.html`
 - 「全て生成」の場合は図の種類ごとに順にキャプチャする
 

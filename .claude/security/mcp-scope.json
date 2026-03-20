@@ -1,5 +1,5 @@
 {
-  "_comment": "スコープ制限設定。空配列 = 制限なし（fail-open）。IDを追加するとホワイトリストモードに切替。",
+  "_comment": "補助ホワイトリスト。メインの許可設定は .env（FIGMA_ALLOWED_FILE_KEYS / GDRIVE_DEFAULT_OUTPUT_FOLDER_ID / MEET_RECORDING_FOLDER_ID）で管理。ここに追加した ID も許可される。空配列 = .env のみで制御。",
   "allowed_figma_file_keys": [],
   "allowed_drive_folder_ids": []
 }
