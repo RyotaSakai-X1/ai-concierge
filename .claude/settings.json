@@ -220,6 +220,15 @@
             "command": "\"$CLAUDE_PROJECT_DIR\"/.claude/hooks/block-rules-change.sh"
           }
         ]
+      },
+      {
+        "matcher": "mcp__figma__generate_figma_design|mcp__figma__generate_diagram",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "\"$CLAUDE_PROJECT_DIR\"/.claude/hooks/auto-add-figma-filekey.sh"
+          }
+        ]
       }
     ]
   }
