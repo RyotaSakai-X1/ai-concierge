@@ -8,7 +8,7 @@
 
 ## Step 1: イシュー情報と依存関係の取得
 
-入力: `gh issue view {番号} --repo RyotaSakai-X1/ai-concierge --json number,title,body,state`
+入力: `gh issue view {番号} --json number,title,body,state`
 
 依存イシューの抽出元:
 - 「関連」セクション
