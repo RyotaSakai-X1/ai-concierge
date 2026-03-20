@@ -24,7 +24,7 @@ Claude Code のチャットで使える自動化コマンドの一覧です。
 | `/extract-requirements`       | ヒアリング情報抽出         | `/extract-requirements https://drive.google.com/drive/folders/xxx`                    |
 | `/generate-screens`           | 画面一覧・遷移図生成       | `/generate-screens docs/outputs/my-project/requirements.md`                           |
 | `/generate-diagrams`          | FigJam ダイアグラム生成    | `/generate-diagrams docs/outputs/my-project/screens/`                                 |
-| `/wireframe`                  | ワイヤーフレーム生成       | `/wireframe docs/outputs/my-project/screens/`                                         |
+| `/wireframe`                  | ワイヤーフレーム生成（Figma 出力） | `/wireframe docs/outputs/my-project/screens/`                                         |
 | `/create-issues-from-meeting` | 議事録からイシュー起票     | `/create-issues-from-meeting docs/outputs/my-project/meetings/2026-03-11-insights.md` |
 | `/checking-ready`             | イシュー着手可否判定       | `/checking-ready 12`                                                                  |
 | `/sync-design-system`         | デザインシステム同期       | `/sync-design-system https://www.figma.com/design/XXXXX/project`                      |

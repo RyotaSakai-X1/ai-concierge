@@ -95,7 +95,7 @@ rules ファイルは YAML frontmatter で適用条件を制御できる:
 | `requirements-extracted.md` | `/extract-requirements`（要件定義書の場合） |
 | `screens/` | `/generate-screens`（画面一覧・遷移図） |
 | `diagrams/` | `/generate-diagrams`（FigJam ダイアグラム Mermaid コード） |
-| `wireframes/` | `/wireframe`（各画面のワイヤーフレームレイアウト） |
+| `wireframes/` | `/wireframe`（Figma に出力、ローカル保存なし） |
 | `estimate-doc.md` | `/create-estimate-doc` |
 | `meetings/` | `/extract-requirements`（MTGレポートの場合） |
 

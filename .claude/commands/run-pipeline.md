@@ -86,12 +86,11 @@ AskUserQuestion の選択肢:
 
 ## Step 6: ワイヤーフレーム生成（/wireframe）
 
-`/wireframe` を実行し、各画面のワイヤーフレーム（レイアウト記述）を生成する。
+`/wireframe` を実行し、HTML ワイヤーフレームを一時生成して Figma にキャプチャ出力する。
 
 **成果物サマリの提示:**
 - 生成した画面数
-- 各画面のファイル一覧
-- 出力ディレクトリパス
+- Figma ファイル URL（マークダウンリンク）
 
 AskUserQuestion の選択肢:
 - `工数見積に進む（/estimating → /create-estimate-doc）`
