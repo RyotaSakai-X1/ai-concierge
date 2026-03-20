@@ -1,6 +1,6 @@
-# /generate-diagrams — 要件定義から FigJam にダイアグラムを生成
+# /generate-diagrams — 要件定義からダイアグラムを生成（Figma 出力）
 
-要件定義書や画面設計の出力をもとに、画面遷移図・フロー図・状態遷移図・シーケンス図を FigJam に生成する。
+要件定義書や画面設計の出力をもとに、画面遷移図・フロー図・状態遷移図・シーケンス図を生成し、Figma にキャプチャ出力する。
 
 ## 引数
 
@@ -45,21 +45,50 @@ AskUserQuestion で確認する。
 | 状態遷移図 | 各状態をノード定義。遷移条件をラベルに。開始/終了 `[*]` を含める |
 | シーケンス図 | 参加者（ユーザー、FE、BE、外部 API 等）を定義。時系列でメッセージ記述 |
 
-## Step 4: FigJam に生成
+## Step 4: HTML 生成 → ローカル配信 → Figma キャプチャ
 
-`mcp__figma__generate_diagram` を使用。
+### 4-1. HTML ファイルを生成
 
-| パラメータ | 値 |
-|-----------|-----|
-| name | `{プロジェクト名} {図の種類}` |
-| mermaidSyntax | Step 3 の Mermaid コード |
-| userIntent | 図の目的を簡潔に |
+1. `knowledge/templates/diagram.html` を読み込む
+2. 図ごとに Mermaid コードをテンプレートに埋め込む
+   - `{{DIAGRAM_TITLE}}` → 図のタイトル（例: `画面遷移図`）
+   - `{{DIAGRAM_DESCRIPTION}}` → 図の説明
+   - `{{MERMAID_CODE}}` → Step 3 の Mermaid コード
+3. `/tmp/diagrams-{slug}/` ディレクトリに HTML ファイルを出力する
+   - `screen-flow.html`（画面遷移図）
+   - `user-flow.html`（ユーザーフロー）
+   - `state-diagram.html`（状態遷移図）
+   - `sequence.html`（シーケンス図）
 
-戻り値の URL を必ずマークダウンリンクでユーザーに表示する。「全て生成」の場合は図の種類ごとに順に呼び出す。
+### 4-2. ローカルサーバー起動
+
+```bash
+npx serve /tmp/diagrams-{slug}/ -l 3457 &
+```
+
+> ポート 3457 を使用（wireframe の 3456 と重複しないよう）
+
+### 4-3. Figma 出力先の選択
+
+AskUserQuestion で確認する。
+
+選択肢: `新規 Figma ファイルに出力` / `既存 Figma ファイルに追加（URL を入力）`
+
+### 4-4. Figma にキャプチャ
+
+`generate_figma_design` を使用し、各図の HTML を Figma にキャプチャする。
+
+- URL: `http://localhost:3457/{図の種類}.html`
+- 「全て生成」の場合は図の種類ごとに順にキャプチャする
+
+### 4-5. クリーンアップ
+
+1. ローカルサーバーを停止する（`kill` でプロセス終了）
+2. `/tmp/diagrams-{slug}/` を削除する
 
 ## Step 5: 結果の報告
 
-報告項目: 図の種類と FigJam URL / 画面/ノード数
+報告項目: 図の種類と Figma ファイル URL / 画面/ノード数
 
 Mermaid コードのローカル保存先: `docs/outputs/{案件slug}/diagrams/`
 
@@ -82,7 +111,7 @@ Mermaid コードのローカル保存先: `docs/outputs/{案件slug}/diagrams/`
 
 | ルール |
 |--------|
-| 対応タイプ: `graph`, `flowchart`, `sequenceDiagram`, `stateDiagram`, `stateDiagram-v2`, `gantt` |
+| mermaid.js がサポートする全タイプが使用可能（graph, flowchart, sequenceDiagram, stateDiagram, stateDiagram-v2, gantt, pie, mindmap, gitGraph 等） |
 | graph/flowchart では全テキストを引用符で囲む |
 | 絵文字を使用しない |
 | `\n` で改行しない（実際の改行を使う） |
@@ -92,7 +121,7 @@ Mermaid コードのローカル保存先: `docs/outputs/{案件slug}/diagrams/`
 
 - 要件にない画面や遷移を追加しない（一般的に必要なもののみ例外）
 - 画面数が多い場合は subgraph で分割し読みやすさ優先
-- FigJam 生成後のレイアウト微調整は Figma 上で行うよう案内
+- Figma キャプチャ後のレイアウト微調整は Figma 上で行うよう案内
 - 仮定を置いた場合は `> ⚠️ 仮定：` で明示
 
 ## 関連コマンド

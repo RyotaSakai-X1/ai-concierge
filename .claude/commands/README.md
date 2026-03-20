@@ -23,7 +23,7 @@ Claude Code のチャットで使える自動化コマンドの一覧です。
 | `/define-requirements`        | 要件定義書作成             | `/define-requirements https://docs.google.com/document/d/xxx`                         |
 | `/extract-requirements`       | ヒアリング情報抽出         | `/extract-requirements https://drive.google.com/drive/folders/xxx`                    |
 | `/generate-screens`           | 画面一覧・遷移図生成       | `/generate-screens docs/outputs/my-project/requirements.md`                           |
-| `/generate-diagrams`          | FigJam ダイアグラム生成    | `/generate-diagrams docs/outputs/my-project/screens/`                                 |
+| `/generate-diagrams`          | ダイアグラム生成（Figma 出力） | `/generate-diagrams docs/outputs/my-project/screens/`                                 |
 | `/wireframe`                  | ワイヤーフレーム生成（Figma 出力） | `/wireframe docs/outputs/my-project/screens/`                                         |
 | `/create-issues-from-meeting` | 議事録からイシュー起票     | `/create-issues-from-meeting docs/outputs/my-project/meetings/2026-03-11-insights.md` |
 | `/checking-ready`             | イシュー着手可否判定       | `/checking-ready 12`                                                                  |
