@@ -250,6 +250,36 @@ PR 作成やイシュー管理に使用します。
    FIGMA_API_KEY=生成したトークン
    ```
 
+### デフォルト出力先の設定（省略可）
+
+`/wireframe` や `/generate-diagrams` などのコマンドで毎回出力先を聞かれるのを省略できます。未設定の場合は従来通り都度選択します。
+
+#### `FIGMA_DEFAULT_PLAN_KEY`
+
+Figma で新規ファイルを作成する際の配置先です。未設定の場合は Drafts に作成されます。
+
+**取得手順:**
+
+1. Claude Code で `mcp__figma__whoami` を実行し、所属チーム情報を確認
+2. `/wireframe` などを一度実行し、`generate_figma_design` が返す **プラン一覧** から配置先の `planKey` を確認
+3. `.env` に設定：
+   ```
+   FIGMA_DEFAULT_PLAN_KEY=取得したplanKey
+   ```
+
+#### `GDRIVE_DEFAULT_OUTPUT_FOLDER_ID`
+
+Google Drive でスプレッドシートなどを作成する際の出力先フォルダです。未設定の場合はマイドライブ直下に作成されます。
+
+**取得手順:**
+
+1. Google Drive で出力先にしたいフォルダを開く
+2. URL の末尾がフォルダ ID（例: `drive.google.com/drive/folders/1aBcDeFgHiJkLmN`）
+3. `.env` に設定：
+   ```
+   GDRIVE_DEFAULT_OUTPUT_FOLDER_ID=1aBcDeFgHiJkLmN
+   ```
+
 </details>
 
 ## コマンドの使い方
