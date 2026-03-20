@@ -1,6 +1,6 @@
-# /wireframe — 要件定義から FigJam にワイヤーフレーム図を生成
+# /generate-diagrams — 要件定義から FigJam にダイアグラムを生成
 
-要件定義書や画面設計の出力をもとに、画面遷移図・フロー図を FigJam に生成する。
+要件定義書や画面設計の出力をもとに、ダイアグラム（画面遷移図・フロー図・状態遷移図等）を FigJam に生成する。
 
 ## 引数
 
@@ -61,7 +61,7 @@ AskUserQuestion で確認する。
 
 報告項目: 図の種類と FigJam URL / 画面/ノード数
 
-Mermaid コードのローカル保存先: `docs/outputs/{案件slug}/wireframes/`
+Mermaid コードのローカル保存先: `docs/outputs/{案件slug}/diagrams/`
 
 | ファイル | 内容 |
 |---------|------|
@@ -74,7 +74,7 @@ Mermaid コードのローカル保存先: `docs/outputs/{案件slug}/wireframes
 
 | 状況 | 推奨 |
 |------|------|
-| 画面設計がまだ | `/generate-screens` で画面レイアウト設計 |
+| 画面設計がまだ | `/generate-screens` で画面レイアウト設計 → `/wireframe` で各画面のワイヤーフレーム生成 |
 | 工数見積もりが必要 | `/estimating` でスプレッドシートから見積もり |
 | 技術設計に進む | `/generating-spec` で技術設計 |
 
