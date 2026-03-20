@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=1440">
+  <title>{{DIAGRAM_TITLE}}</title>
+  <script src="https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.min.js"></script>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", sans-serif;
+      background: #ffffff;
+      color: #333;
+      width: 1440px;
+      margin: 0 auto;
+      padding: 48px 64px;
+    }
+
+    /* ── ヘッダー領域 ── */
+    .diagram-header {
+      margin-bottom: 32px;
+      padding-bottom: 16px;
+      border-bottom: 2px solid #e0e0e0;
+    }
+    .diagram-header h1 {
+      font-size: 24px;
+      font-weight: 700;
+      color: #333;
+    }
+    .diagram-header p {
+      font-size: 14px;
+      color: #666;
+      margin-top: 4px;
+    }
+
+    /* ── Mermaid 図コンテナ ── */
+    .mermaid-container {
+      display: flex;
+      justify-content: center;
+      padding: 48px 32px;
+      background: #ffffff;
+      border: 1px solid #e0e0e0;
+      border-radius: 8px;
+      min-height: 400px;
+    }
+    .mermaid {
+      max-width: 100%;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="diagram-header">
+    <h1>{{DIAGRAM_TITLE}}</h1>
+    <p>{{DIAGRAM_DESCRIPTION}}</p>
+  </div>
+
+  <div class="mermaid-container">
+    <pre class="mermaid">
+{{MERMAID_CODE}}
+    </pre>
+  </div>
+
+  <script>
+    mermaid.initialize({
+      startOnLoad: true,
+      theme: 'default',
+      securityLevel: 'loose',
+      flowchart: { useMaxWidth: true, htmlLabels: true },
+      sequence: { useMaxWidth: true },
+      themeVariables: {
+        fontSize: '14px'
+      }
+    });
+  </script>
+
+</body>
+</html>

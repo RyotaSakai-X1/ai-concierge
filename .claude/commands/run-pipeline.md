@@ -67,18 +67,18 @@ AskUserQuestion の選択肢:
 - 出力ファイルパス
 
 AskUserQuestion の選択肢:
-- `ダイアグラムを FigJam に生成（/generate-diagrams）`（推奨）
+- `ダイアグラムを Figma に生成（/generate-diagrams）`（推奨）
 - `ワイヤーフレームに進む（/wireframe）`
 - `両方（ダイアグラム → ワイヤーフレーム）`
 - `ここで終了`
 
 ## Step 5: ダイアグラム生成（/generate-diagrams）
 
-`/generate-diagrams` を実行し、FigJam にダイアグラムを生成する。
+`/generate-diagrams` を実行し、Figma にダイアグラムを生成する。
 
 **成果物サマリの提示:**
 - 生成した図の種類と件数
-- FigJam URL（マークダウンリンク）
+- Figma ファイル URL（マークダウンリンク）
 
 AskUserQuestion の選択肢:
 - `ワイヤーフレームに進む（/wireframe）`（推奨）
@@ -125,7 +125,7 @@ AskUserQuestion の選択肢:
 | 実行したステップ | 実行済みのコマンド一覧 |
 | 生成された成果物 | ファイル一覧 |
 | 起票されたイシュー | イシュー一覧（ある場合） |
-| FigJam URL | ダイアグラム URL（ある場合） |
+| Figma URL | ダイアグラム URL（ある場合） |
 
 ## 制約
 
