@@ -1,5 +1,5 @@
 {
-  "_comment": "スコープ制限設定。空配列 = 制限なし（fail-open）。IDを追加するとホワイトリストモードに切替。",
+  "_comment": "スコープ制限設定。空配列 = 制限なし（fail-open）。IDを追加するとホワイトリストモードに切替。デフォルト出力先は .env の FIGMA_DEFAULT_PLAN_KEY / GDRIVE_DEFAULT_OUTPUT_FOLDER_ID で設定（destination-defaults.md 参照）。",
   "allowed_figma_file_keys": [],
   "allowed_drive_folder_ids": []
 }
