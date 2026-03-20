@@ -57,12 +57,14 @@ gh が使えない場合は PR 作成用 URL・タイトル案・本文案をユ
 
 PR に `Closes #XX` で紐づけたイシューがある場合、`.claude/rules/git-workflow.md` の「イシューステータスの更新」手順に従い **In review** に変更する。
 
-## Step 7: main に戻る
+## Step 7: 完了報告
+
+PR の URL を表示して完了。ブランチはそのまま維持する（修正対応に備える）。
 
 | コンテキスト | 動作 |
 |------------|------|
-| 通常実行 | `git checkout main` |
-| worktree 内実行 | スキップ（worktree はそのまま維持） |
+| 通常実行 | PR URL を表示。ブランチはそのまま維持 |
+| worktree 内実行 | PR URL を表示。worktree はそのまま維持 |
 
 ## 制約
 
