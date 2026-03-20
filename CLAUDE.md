@@ -22,18 +22,7 @@
 
 ## 並列実行アーキテクチャ
 
-複数の独立したイシューを同時に処理する場合、Agent Teams（メンバー間通信）+ worktree（ファイル分離）のハイブリッド方式を採用する:
-
-1. テックリードがチームを作成し、各メンバーにイシューを割り当てる
-2. 各メンバーが `git worktree add` で独自 worktree を作成し、独立ブランチで作業する
-3. メンバーは共有タスクリストに変更予定ファイルを宣言し、競合を事前回避する
-4. 各メンバーが実装 → セルフレビュー → コミットまでを実行する
-5. テックリードが各メンバーの成果をレビューし、ユーザーに報告する
-6. ユーザー承認後、テックリードがプッシュ・PR 作成を実行する
-
-> 並列実行には Agent Teams（`CLAUDE_CODE_EXPERIMENTAL_AGENT_TEAMS=1`）が必要。未有効の場合は `/work-on-issue` による単体イシュー対応で順次実行する。
-
-詳細は `.claude/rules/parallel-execution.md` を参照。
+複数のイシューを同時処理する際は Agent Teams + worktree ハイブリッド方式を採用する。並列実行には `CLAUDE_CODE_EXPERIMENTAL_AGENT_TEAMS=1` が必要（未有効時は `/work-on-issue` で順次実行）。詳細は `.claude/rules/parallel-execution.md` を参照。
 
 ## ルール（必ず従うこと）
 
