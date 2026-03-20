@@ -130,18 +130,37 @@ GitHub Projects のステータスを以下のタイミングで変更する：
 
 ### 更新コマンド
 
-1. イシューの Project Item ID を取得: `gh project item-list 1 --owner RyotaSakai-X1 --format json --limit 200` で一覧を取得し、該当イシュー番号の `.id` を抽出
-2. ステータスを変更: `gh project item-edit` で以下のパラメータを指定
+以下の手順で GitHub Projects のステータスを動的に更新する。ID はすべて `gh` CLI で動的取得し、ハードコードしない。
 
-| パラメータ | 値 |
-|-----------|-----|
-| --project-id | PVT_kwHOB_Hl9M4BRRtG |
-| --field-id | PVTSSF_lAHOB_Hl9M4BRRtGzg_Jsyk |
+#### 1. プロジェクト情報の取得
 
-| ステータス | オプション ID |
-|-----------|-------------|
-| Backlog | f75ad846 |
-| Ready | 61e4505c |
-| In progress | 47fc9ee4 |
-| In review | df73e18b |
-| Done | 98236657 |
+```bash
+# リポジトリオーナーを取得
+OWNER=$(gh repo view --json owner -q '.owner.login')
+
+# プロジェクト一覧を取得（複数ある場合はユーザーに選択させる）
+gh project list --owner $OWNER --format json
+```
+
+#### 2. フィールド ID・オプション ID の取得
+
+```bash
+# Status フィールドとオプション ID を取得
+gh project field-list {プロジェクト番号} --owner $OWNER --format json
+```
+
+返却される JSON から以下を抽出する:
+- `name: "Status"` のフィールド → `--field-id` に使用
+- 各 `options` の `id` → ステータス名に対応するオプション ID
+
+#### 3. イシューのステータス変更
+
+```bash
+# Project Item ID を取得
+gh project item-list {プロジェクト番号} --owner $OWNER --format json --limit 200
+
+# ステータスを変更
+gh project item-edit --project-id {取得したプロジェクトID} --id {Item ID} --field-id {Status フィールドID} --single-select-option-id {対象ステータスのオプションID}
+```
+
+> プロジェクトが1つしかない場合は自動選択する。複数ある場合は AskUserQuestion で選択させる。
