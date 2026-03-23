@@ -1,0 +1,480 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=768">
+  <title>{{画面タイトル}} — ワイヤーフレーム（Tablet）</title>
+  <style>
+    /* ── リセット & ベース ── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", sans-serif;
+      background: #f5f5f5;
+      color: #333;
+      width: 768px;
+      margin: 0 auto;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* ── ナビゲーションパス ── */
+    .breadcrumb {
+      padding: 8px 16px;
+      font-size: 12px;
+      color: #999;
+      background: #fff;
+      border-bottom: 1px solid #ddd;
+    }
+    .breadcrumb a { color: #666; text-decoration: none; }
+    .breadcrumb span { margin: 0 4px; }
+
+    /* ── ヘッダー ── */
+    header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 16px;
+      height: 56px;
+      background: #fff;
+      border-bottom: 1px solid #ddd;
+    }
+    header .logo {
+      font-size: 16px;
+      font-weight: 700;
+      color: #333;
+    }
+    header nav { display: flex; gap: 16px; }
+    header nav a {
+      font-size: 13px;
+      color: #666;
+      text-decoration: none;
+    }
+    header .user-menu {
+      width: 32px; height: 32px;
+      border-radius: 50%;
+      background: #ddd;
+    }
+
+    /* ── レイアウト ── */
+    .layout {
+      display: flex;
+      flex: 1;
+    }
+
+    /* ── サイドバー（折りたたみ: 64px、アイコンのみ） ── */
+    .sidebar {
+      width: 64px;
+      background: #fff;
+      border-right: 1px solid #ddd;
+      padding: 16px 0;
+      flex-shrink: 0;
+    }
+    .sidebar .menu-section {
+      display: none; /* タブレット: 折りたたみ時はセクションヘッダー非表示 */
+    }
+    .sidebar .menu-item {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 12px 0;
+      color: #666;
+      text-decoration: none;
+      border-left: 3px solid transparent;
+      position: relative;
+    }
+    .sidebar .menu-item .icon {
+      width: 24px;
+      height: 24px;
+      background: #ddd;
+      border-radius: 4px;
+    }
+    .sidebar .menu-item .text {
+      display: none; /* タブレットではテキスト非表示 */
+    }
+    .sidebar .menu-item.active {
+      border-left-color: #333;
+      background: #f9f9f9;
+    }
+    .sidebar .menu-item.active .icon {
+      background: #333;
+    }
+    /* ツールチップ（ホバー時にメニュー名表示） */
+    .sidebar .menu-item:hover::after {
+      content: attr(data-label);
+      position: absolute;
+      left: 68px;
+      background: #333;
+      color: #fff;
+      padding: 4px 8px;
+      border-radius: 4px;
+      font-size: 12px;
+      white-space: nowrap;
+      z-index: 10;
+    }
+
+    /* ── メインコンテンツ ── */
+    main {
+      flex: 1;
+      padding: 20px;
+    }
+    .page-title {
+      font-size: 20px;
+      font-weight: 700;
+      margin-bottom: 20px;
+      padding-bottom: 12px;
+      border-bottom: 2px solid #ddd;
+    }
+
+    /* ── カード ── */
+    .card {
+      background: #fff;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+      padding: 16px;
+      margin-bottom: 16px;
+    }
+    .card-title {
+      font-size: 14px;
+      font-weight: 600;
+      margin-bottom: 12px;
+    }
+
+    /* ── テーブル（横スクロール対応） ── */
+    .table-scroll-container {
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+    }
+    table {
+      width: 100%;
+      min-width: 500px;
+      border-collapse: collapse;
+      font-size: 13px;
+    }
+    th, td {
+      padding: 10px 12px;
+      border: 1px solid #ddd;
+      text-align: left;
+    }
+    th {
+      background: #f9f9f9;
+      font-weight: 600;
+    }
+
+    /* ── フォーム ── */
+    .form-group {
+      margin-bottom: 16px;
+    }
+    .form-group label {
+      display: block;
+      font-size: 13px;
+      font-weight: 600;
+      margin-bottom: 4px;
+    }
+    .form-group input,
+    .form-group select,
+    .form-group textarea {
+      width: 100%;
+      padding: 8px 12px;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+      font-size: 16px; /* iOS ズーム防止 */
+      background: #fff;
+    }
+    .form-group textarea { min-height: 80px; resize: vertical; }
+
+    /* ── ボタン ── */
+    .btn {
+      display: inline-block;
+      padding: 8px 20px;
+      font-size: 14px;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+      background: #fff;
+      color: #333;
+      cursor: pointer;
+      text-decoration: none;
+    }
+    .btn-primary {
+      background: #333;
+      color: #fff;
+      border-color: #333;
+    }
+    .btn-sm { padding: 4px 12px; font-size: 12px; }
+
+    /* ── 検索バー ── */
+    .search-bar {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 16px;
+    }
+    .search-bar input {
+      flex: 1;
+      padding: 8px 12px;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+      font-size: 14px;
+    }
+
+    /* ── プレースホルダー画像 ── */
+    .placeholder-image {
+      background: #eee;
+      border: 1px dashed #ccc;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #999;
+      font-size: 13px;
+    }
+
+    /* ── モーダル ── */
+    .modal-overlay {
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(0,0,0,0.3);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .modal {
+      background: #fff;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      padding: 24px;
+      width: 90%;
+      max-width: 600px;
+    }
+    .modal-title {
+      font-size: 16px;
+      font-weight: 700;
+      margin-bottom: 16px;
+      padding-bottom: 12px;
+      border-bottom: 1px solid #ddd;
+    }
+    .modal-actions {
+      display: flex;
+      justify-content: flex-end;
+      gap: 8px;
+      margin-top: 16px;
+    }
+
+    /* ── ステータスバッジ ── */
+    .badge {
+      display: inline-block;
+      padding: 2px 8px;
+      font-size: 11px;
+      border-radius: 10px;
+      border: 1px solid #ddd;
+      background: #f5f5f5;
+    }
+
+    /* ── グリッドレイアウト（タブレット: 最大2列） ── */
+    .grid { display: grid; gap: 16px; }
+    .grid-2 { grid-template-columns: repeat(2, 1fr); }
+    .grid-3 { grid-template-columns: repeat(2, 1fr); }
+    .grid-4 { grid-template-columns: repeat(2, 1fr); }
+
+    /* ── フッター ── */
+    footer {
+      padding: 16px 20px;
+      font-size: 12px;
+      color: #999;
+      background: #fff;
+      border-top: 1px solid #ddd;
+      text-align: center;
+    }
+
+    /* ── タブ ── */
+    .tabs {
+      display: flex;
+      border-bottom: 1px solid #ddd;
+      margin-bottom: 16px;
+    }
+    .tab {
+      padding: 10px 16px;
+      font-size: 13px;
+      color: #666;
+      border-bottom: 2px solid transparent;
+      cursor: pointer;
+    }
+    .tab.active {
+      color: #333;
+      font-weight: 600;
+      border-bottom-color: #333;
+    }
+
+    /* ── ページネーション ── */
+    .pagination {
+      display: flex;
+      justify-content: center;
+      gap: 4px;
+      margin-top: 16px;
+    }
+    .pagination a {
+      padding: 6px 12px;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+      font-size: 13px;
+      color: #666;
+      text-decoration: none;
+    }
+    .pagination a.active {
+      background: #333;
+      color: #fff;
+      border-color: #333;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- パンくずリスト -->
+  <div class="breadcrumb">
+    <a href="#">ホーム</a>
+    <span>&gt;</span>
+    <a href="#">{{セクション名}}</a>
+    <span>&gt;</span>
+    {{画面タイトル}}
+  </div>
+
+  <!-- ヘッダー -->
+  <header>
+    <div class="logo">{{プロジェクト名}}</div>
+    <nav>
+      <a href="#">ダッシュボード</a>
+      <a href="#">{{ナビ項目1}}</a>
+      <a href="#">設定</a>
+    </nav>
+    <div class="user-menu"></div>
+  </header>
+
+  <div class="layout">
+
+    <!-- サイドバー（折りたたみ: アイコンのみ） -->
+    <aside class="sidebar">
+      <a href="#" class="menu-item active" data-label="{{メニュー項目1}}" aria-label="{{メニュー項目1}}">
+        <div class="icon"></div>
+      </a>
+      <a href="#" class="menu-item" data-label="{{メニュー項目2}}" aria-label="{{メニュー項目2}}">
+        <div class="icon"></div>
+      </a>
+      <a href="#" class="menu-item" data-label="{{メニュー項目3}}" aria-label="{{メニュー項目3}}">
+        <div class="icon"></div>
+      </a>
+      <a href="#" class="menu-item" data-label="{{メニュー項目4}}" aria-label="{{メニュー項目4}}">
+        <div class="icon"></div>
+      </a>
+    </aside>
+
+    <!-- メインコンテンツ -->
+    <main>
+      <h1 class="page-title">{{画面タイトル}}</h1>
+
+      <!-- === 以下、画面の要件に応じてセクションを組み合わせる === -->
+
+      <!-- 検索 + アクションバー -->
+      <div class="search-bar">
+        <input type="text" placeholder="検索...">
+        <button class="btn btn-primary">検索</button>
+        <button class="btn">+ 新規作成</button>
+      </div>
+
+      <!-- データテーブル（横スクロール対応） -->
+      <div class="card">
+        <div class="table-scroll-container">
+          <table>
+            <thead>
+              <tr>
+                <th>{{列1}}</th>
+                <th>{{列2}}</th>
+                <th>{{列3}}</th>
+                <th>ステータス</th>
+                <th>操作</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>{{サンプルデータ}}</td>
+                <td>{{サンプルデータ}}</td>
+                <td>{{サンプルデータ}}</td>
+                <td><span class="badge">{{ステータス}}</span></td>
+                <td><a href="#" class="btn btn-sm">編集</a></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="pagination">
+          <a href="#">&laquo;</a>
+          <a href="#" class="active">1</a>
+          <a href="#">2</a>
+          <a href="#">3</a>
+          <a href="#">&raquo;</a>
+        </div>
+      </div>
+
+      <!-- フォーム -->
+      <div class="card">
+        <div class="card-title">{{フォームタイトル}}</div>
+        <div class="form-group">
+          <label>{{ラベル1}}</label>
+          <input type="text" placeholder="{{プレースホルダー}}">
+        </div>
+        <div class="form-group">
+          <label>{{ラベル2}}</label>
+          <select><option>{{選択肢}}</option></select>
+        </div>
+        <div class="form-group">
+          <label>{{ラベル3}}</label>
+          <textarea placeholder="{{プレースホルダー}}"></textarea>
+        </div>
+        <div style="display: flex; gap: 8px; justify-content: flex-end;">
+          <button class="btn">キャンセル</button>
+          <button class="btn btn-primary">保存</button>
+        </div>
+      </div>
+
+      <!-- カードグリッド（タブレット: 2列） -->
+      <div class="grid grid-3">
+        <div class="card">
+          <div class="placeholder-image" style="height: 120px; margin-bottom: 12px;">画像</div>
+          <div class="card-title">{{カードタイトル}}</div>
+          <p style="font-size: 13px; color: #666;">{{説明テキスト}}</p>
+        </div>
+        <div class="card">
+          <div class="placeholder-image" style="height: 120px; margin-bottom: 12px;">画像</div>
+          <div class="card-title">{{カードタイトル}}</div>
+          <p style="font-size: 13px; color: #666;">{{説明テキスト}}</p>
+        </div>
+        <div class="card">
+          <div class="placeholder-image" style="height: 120px; margin-bottom: 12px;">画像</div>
+          <div class="card-title">{{カードタイトル}}</div>
+          <p style="font-size: 13px; color: #666;">{{説明テキスト}}</p>
+        </div>
+      </div>
+
+    </main>
+  </div>
+
+  <!-- フッター -->
+  <footer>
+    &copy; 2026 {{プロジェクト名}} — All rights reserved.
+  </footer>
+
+  <!-- モーダル（必要な画面のみ・非表示で配置） -->
+  <!--
+  <div class="modal-overlay">
+    <div class="modal">
+      <div class="modal-title">{{モーダルタイトル}}</div>
+      <div class="form-group">
+        <label>{{ラベル}}</label>
+        <input type="text">
+      </div>
+      <div class="modal-actions">
+        <button class="btn">キャンセル</button>
+        <button class="btn btn-primary">確認</button>
+      </div>
+    </div>
+  </div>
+  -->
+
+</body>
+</html>
