@@ -107,7 +107,7 @@ main への直コミットを廃止し、すべての作業をイシュー起点
 | コマンド | 用途 | 備考 |
 |---------|------|------|
 | `/generate-test-cases` | コードベース+仕様書からテスト項目を抽出しスプシに書き出し | Google Workspace MCP 連携 |
-| `/run-ui-test` | テスト項目に基づくUIテスト実行・結果記録 | 現在は手順書生成+手動記録、将来 Playwright MCP で自動化 |
+| `/run-ui-test` | テスト項目に基づくUIテスト実行・結果記録 | Browser Use CLI 2.0 で自動化（自然言語操作、Real Browser モード対応） |
 | `/test-report` | テスト結果集計・NG項目からバグイシュー自動起票 | GitHub Issues 連携 |
 
 #### 7. デザイナー系コマンドの整備
