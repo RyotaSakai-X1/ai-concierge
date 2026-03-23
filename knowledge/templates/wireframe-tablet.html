@@ -70,6 +70,9 @@
       padding: 16px 0;
       flex-shrink: 0;
     }
+    .sidebar .menu-section {
+      display: none; /* タブレット: 折りたたみ時はセクションヘッダー非表示 */
+    }
     .sidebar .menu-item {
       display: flex;
       align-items: center;
@@ -175,7 +178,7 @@
       padding: 8px 12px;
       border: 1px solid #ddd;
       border-radius: 4px;
-      font-size: 14px;
+      font-size: 16px; /* iOS ズーム防止 */
       background: #fff;
     }
     .form-group textarea { min-height: 80px; resize: vertical; }
@@ -348,16 +351,16 @@
 
     <!-- サイドバー（折りたたみ: アイコンのみ） -->
     <aside class="sidebar">
-      <a href="#" class="menu-item active" data-label="{{メニュー項目1}}">
+      <a href="#" class="menu-item active" data-label="{{メニュー項目1}}" aria-label="{{メニュー項目1}}">
         <div class="icon"></div>
       </a>
-      <a href="#" class="menu-item" data-label="{{メニュー項目2}}">
+      <a href="#" class="menu-item" data-label="{{メニュー項目2}}" aria-label="{{メニュー項目2}}">
         <div class="icon"></div>
       </a>
-      <a href="#" class="menu-item" data-label="{{メニュー項目3}}">
+      <a href="#" class="menu-item" data-label="{{メニュー項目3}}" aria-label="{{メニュー項目3}}">
         <div class="icon"></div>
       </a>
-      <a href="#" class="menu-item" data-label="{{メニュー項目4}}">
+      <a href="#" class="menu-item" data-label="{{メニュー項目4}}" aria-label="{{メニュー項目4}}">
         <div class="icon"></div>
       </a>
     </aside>

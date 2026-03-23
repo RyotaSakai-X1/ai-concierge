@@ -19,6 +19,17 @@
       padding-bottom: 56px; /* ボトムナビ分 */
     }
 
+    /* ── ナビゲーションパス ── */
+    .breadcrumb {
+      padding: 8px 16px;
+      font-size: 12px;
+      color: #999;
+      background: #fff;
+      border-bottom: 1px solid #ddd;
+    }
+    .breadcrumb a { color: #666; text-decoration: none; }
+    .breadcrumb span { margin: 0 4px; }
+
     /* ── ヘッダー ── */
     header {
       display: flex;
@@ -155,7 +166,7 @@
       width: 100%;
       text-align: center;
     }
-    .btn-sm { padding: 6px 12px; font-size: 12px; }
+    .btn-sm { padding: 6px 12px; font-size: 12px; min-height: 44px; }
 
     /* ── 検索バー（縦積み） ── */
     .search-bar {
@@ -313,6 +324,7 @@
       color: #999;
       text-decoration: none;
       padding: 4px 0;
+      min-height: 44px;
     }
     .bottom-nav .nav-item.active {
       color: #333;
@@ -330,6 +342,17 @@
   </style>
 </head>
 <body>
+
+  <!-- パンくずリスト（モバイルでは非表示が一般的。必要に応じてコメント解除） -->
+  <!--
+  <div class="breadcrumb">
+    <a href="#">ホーム</a>
+    <span>&gt;</span>
+    <a href="#">{{セクション名}}</a>
+    <span>&gt;</span>
+    {{画面タイトル}}
+  </div>
+  -->
 
   <!-- ヘッダー -->
   <header>

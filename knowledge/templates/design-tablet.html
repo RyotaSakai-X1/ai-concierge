@@ -186,6 +186,9 @@
       padding: var(--space-4) 0;
       flex-shrink: 0;
     }
+    .sidebar .menu-section {
+      display: none; /* タブレット: 折りたたみ時はセクションヘッダー非表示 */
+    }
     .sidebar .menu-item {
       display: flex;
       align-items: center;
@@ -360,7 +363,7 @@
       padding: var(--space-2) var(--space-3);
       border: 1px solid var(--neutral-200);
       border-radius: var(--radius-sm);
-      font-size: var(--text-sm);
+      font-size: 16px; /* iOS ズーム防止 */
       font-family: var(--font-body);
       background: white;
       color: var(--neutral-800);
@@ -745,6 +748,17 @@
       text-align: center;
     }
 
+    /* ══ アクセシビリティ ══ */
+    .sr-only {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      overflow: hidden;
+      clip: rect(0, 0, 0, 0);
+      white-space: nowrap;
+      border: 0;
+    }
+
     /* ══ ユーティリティ ══ */
     .text-primary { color: var(--primary); }
     .text-muted { color: var(--neutral-600); }
@@ -787,17 +801,21 @@
 
     <!-- サイドバー（折りたたみ: アイコンのみ） -->
     <aside class="sidebar">
-      <a href="#" class="menu-item active" data-label="{{メニュー項目1}}">
+      <a href="#" class="menu-item active" data-label="{{メニュー項目1}}" aria-label="{{メニュー項目1}}">
         <div class="icon"></div>
+        <span class="sr-only">{{メニュー項目1}}</span>
       </a>
-      <a href="#" class="menu-item" data-label="{{メニュー項目2}}">
+      <a href="#" class="menu-item" data-label="{{メニュー項目2}}" aria-label="{{メニュー項目2}}">
         <div class="icon"></div>
+        <span class="sr-only">{{メニュー項目2}}</span>
       </a>
-      <a href="#" class="menu-item" data-label="{{メニュー項目3}}">
+      <a href="#" class="menu-item" data-label="{{メニュー項目3}}" aria-label="{{メニュー項目3}}">
         <div class="icon"></div>
+        <span class="sr-only">{{メニュー項目3}}</span>
       </a>
-      <a href="#" class="menu-item" data-label="{{メニュー項目4}}">
+      <a href="#" class="menu-item" data-label="{{メニュー項目4}}" aria-label="{{メニュー項目4}}">
         <div class="icon"></div>
+        <span class="sr-only">{{メニュー項目4}}</span>
       </a>
     </aside>
 

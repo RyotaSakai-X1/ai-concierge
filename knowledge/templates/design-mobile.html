@@ -113,6 +113,22 @@
       color: var(--neutral-900);
     }
 
+    /* ══ ナビゲーションパス ══ */
+    .breadcrumb {
+      padding: var(--space-2) var(--space-4);
+      font-size: var(--text-xs);
+      color: var(--neutral-600);
+      background: white;
+      border-bottom: 1px solid var(--neutral-200);
+    }
+    .breadcrumb a {
+      color: var(--primary);
+      text-decoration: none;
+      transition: color var(--transition-fast);
+    }
+    .breadcrumb a:hover { color: var(--primary-hover); }
+    .breadcrumb span { margin: 0 var(--space-1); color: var(--neutral-300); }
+
     /* ══ ヘッダー ══ */
     header {
       display: flex;
@@ -382,7 +398,7 @@
       display: flex;
       width: 100%;
     }
-    .btn-sm { padding: var(--space-1) var(--space-3); font-size: var(--text-xs); }
+    .btn-sm { padding: var(--space-1) var(--space-3); font-size: var(--text-xs); min-height: 44px; }
     .btn-lg { padding: var(--space-3) var(--space-6); font-size: var(--text-base); }
 
     /* ══ 検索バー（縦積み） ══ */
@@ -473,6 +489,95 @@
       background: var(--info-light);
       color: var(--info);
       border: 1px solid var(--info);
+    }
+
+    /* ══ トグル（スイッチ） ══ */
+    .toggle {
+      position: relative;
+      width: 52px;
+      height: 32px; /* モバイル: タッチターゲット拡大 */
+      background: var(--neutral-200);
+      border-radius: 16px;
+      cursor: pointer;
+      transition: background var(--transition-fast);
+    }
+    .toggle.active { background: var(--primary); }
+    .toggle::after {
+      content: '';
+      position: absolute;
+      top: 4px;
+      left: 4px;
+      width: 24px;
+      height: 24px;
+      background: white;
+      border-radius: 50%;
+      box-shadow: var(--shadow-sm);
+      transition: transform var(--transition-fast);
+    }
+    .toggle.active::after { transform: translateX(20px); }
+
+    /* ══ チェックボックス（カスタム） ══ */
+    .checkbox-custom {
+      display: flex;
+      align-items: center;
+      gap: var(--space-3);
+      font-size: var(--text-sm);
+      color: var(--neutral-800);
+      cursor: pointer;
+      min-height: 44px; /* モバイル: タッチターゲット確保 */
+    }
+    .checkbox-custom .check {
+      width: 22px;
+      height: 22px; /* モバイル: タッチターゲット拡大 */
+      border: 2px solid var(--neutral-200);
+      border-radius: var(--radius-sm);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all var(--transition-fast);
+      flex-shrink: 0;
+    }
+    .checkbox-custom .check.checked {
+      background: var(--primary);
+      border-color: var(--primary);
+      color: white;
+      font-size: 14px;
+    }
+
+    /* ══ ドロップダウン ══ */
+    .dropdown {
+      position: relative;
+      display: inline-block;
+    }
+    .dropdown-menu {
+      position: absolute;
+      top: 100%;
+      left: 0;
+      right: 0;
+      min-width: 200px;
+      background: white;
+      border: 1px solid var(--neutral-200);
+      border-radius: var(--radius-md);
+      box-shadow: var(--shadow-lg);
+      padding: var(--space-1) 0;
+      z-index: 10;
+    }
+    .dropdown-item {
+      display: block;
+      padding: var(--space-3) var(--space-4);
+      font-size: var(--text-sm);
+      color: var(--neutral-800);
+      text-decoration: none;
+      transition: background var(--transition-fast);
+      min-height: 44px; /* モバイル: タッチターゲット確保 */
+      display: flex;
+      align-items: center;
+    }
+    .dropdown-item:hover { background: var(--neutral-50); }
+    .dropdown-separator {
+      height: 1px;
+      background: var(--neutral-200);
+      margin: var(--space-1) 0;
     }
 
     /* ══ プレースホルダー画像 ══ */
@@ -623,6 +728,7 @@
       color: var(--neutral-600);
       text-decoration: none;
       padding: var(--space-1) 0;
+      min-height: 44px;
       transition: color var(--transition-fast);
     }
     .bottom-nav .nav-item.active {
@@ -656,6 +762,17 @@
   </style>
 </head>
 <body>
+
+  <!-- パンくずリスト（モバイルでは非表示が一般的。必要に応じてコメント解除） -->
+  <!--
+  <div class="breadcrumb">
+    <a href="#">ホーム</a>
+    <span>&gt;</span>
+    <a href="#">{{セクション名}}</a>
+    <span>&gt;</span>
+    {{画面タイトル}}
+  </div>
+  -->
 
   <!-- ヘッダー -->
   <header>
