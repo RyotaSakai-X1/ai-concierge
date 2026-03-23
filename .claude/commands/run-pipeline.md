@@ -1,6 +1,6 @@
 # /run-pipeline — 対話的パイプライン実行
 
-議事録やヒアリング情報を起点に、要件抽出 → 要件定義 → イシュー起票 → 画面設計 → ダイアグラム → ワイヤーフレーム → 見積もりの各ステップを対話的に進めるワンストップコマンド。
+議事録やヒアリング情報を起点に、要件抽出 → 要件定義 → イシュー起票 → 画面設計 → ダイアグラム → ワイヤーフレーム → ビジュアルデザイン → 見積もりの各ステップを対話的に進めるワンストップコマンド。
 
 各ステップで成果物サマリを提示し、**必ず** AskUserQuestion で次のアクションを選択する。
 
@@ -11,6 +11,20 @@
   - ローカルファイルパス（Markdown 議事録）
   - Google Drive フォルダ URL（複数ファイル）
   - 省略時は Step 1 で入力を求める
+
+## Step 0: 環境チェック（自動実行）
+
+パイプラインで使用するポート（3456, 3457, 3458）が空いているか確認する。
+
+```bash
+lsof -i :3456 -i :3457 -i :3458
+```
+
+占有されているポートがある場合、該当プロセスを表示し AskUserQuestion で対応を選択する。
+
+選択肢: `プロセスを kill して続行` / `中止する`
+
+全ポートが空いている場合は自動的に Step 1 に進む。
 
 ## Step 1: 入力の取得
 
@@ -93,11 +107,25 @@ AskUserQuestion の選択肢:
 - Figma ファイル URL（マークダウンリンク）
 
 AskUserQuestion の選択肢:
+- `ビジュアルデザインに進む（/design）`（推奨）
+- `工数見積に進む（/estimating → /create-estimate-doc）`
+- `完了`
+
+## Step 7: ビジュアルデザイン生成（/design）
+
+`/design` を実行し、ワイヤーフレームをベースにビジュアルデザインを生成して Figma にキャプチャ出力する。
+
+**成果物サマリの提示:**
+- 生成した画面数
+- 適用したカラーテーマ
+- Figma ファイル URL（マークダウンリンク）
+
+AskUserQuestion の選択肢:
 - `工数見積に進む（/estimating → /create-estimate-doc）`
 - `レビューする（/reviewing）`
 - `完了`
 
-## Step 7: 工数見積（/estimating → /create-estimate-doc）
+## Step 8: 工数見積（/estimating → /create-estimate-doc）
 
 見積ルートが選択された場合に実行する。
 
@@ -125,7 +153,8 @@ AskUserQuestion の選択肢:
 | 実行したステップ | 実行済みのコマンド一覧 |
 | 生成された成果物 | ファイル一覧 |
 | 起票されたイシュー | イシュー一覧（ある場合） |
-| Figma URL | ダイアグラム URL（ある場合） |
+| Figma URL（ダイアグラム） | ダイアグラム URL（ある場合） |
+| Figma URL（デザイン） | デザイン URL（ある場合） |
 
 ## 制約
 
@@ -142,6 +171,7 @@ AskUserQuestion の選択肢:
 - `/generate-screens` — Step 4 で実行
 - `/generate-diagrams` — Step 5 で実行
 - `/wireframe` — Step 6 で実行
-- `/estimating` — Step 7 で実行
-- `/create-estimate-doc` — Step 7 で実行
+- `/design` — Step 7 で実行
+- `/estimating` — Step 8 で実行
+- `/create-estimate-doc` — Step 8 で実行
 - `/reviewing` — 最終レビュー
